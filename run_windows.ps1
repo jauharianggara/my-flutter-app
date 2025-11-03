@@ -38,7 +38,8 @@ try {
     Write-Host "`n🏃 Running Flutter app..." -ForegroundColor Green
     flutter run -d windows --observatory-port=58295
     
-} catch {
+}
+catch {
     Write-Host "❌ Error occurred: $($_.Exception.Message)" -ForegroundColor Red
     
     # Try to kill any hanging processes

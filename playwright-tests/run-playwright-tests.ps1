@@ -10,11 +10,12 @@ Write-Host ""
 # Step 1: Check Node.js
 Write-Host "📦 Step 1: Checking Node.js installation..." -ForegroundColor Yellow
 try {
-    $nodeVersion = node --version
-    Write-Host "✅ Node.js version: $nodeVersion" -ForegroundColor Green
-} catch {
-    Write-Host "❌ Node.js not found. Please install Node.js 18+ first." -ForegroundColor Red
-    exit 1
+  $nodeVersion = node --version
+  Write-Host "✅ Node.js version: $nodeVersion" -ForegroundColor Green
+}
+catch {
+  Write-Host "❌ Node.js not found. Please install Node.js 18+ first." -ForegroundColor Red
+  exit 1
 }
 
 # Step 2: Install dependencies
@@ -22,8 +23,8 @@ Write-Host ""
 Write-Host "📥 Step 2: Installing Playwright dependencies..." -ForegroundColor Yellow
 npm install
 if ($LASTEXITCODE -ne 0) {
-    Write-Host "❌ Failed to install dependencies" -ForegroundColor Red
-    exit 1
+  Write-Host "❌ Failed to install dependencies" -ForegroundColor Red
+  exit 1
 }
 Write-Host "✅ Dependencies installed" -ForegroundColor Green
 
@@ -32,8 +33,8 @@ Write-Host ""
 Write-Host "🌐 Step 3: Installing Playwright browsers..." -ForegroundColor Yellow
 npx playwright install
 if ($LASTEXITCODE -ne 0) {
-    Write-Host "❌ Failed to install browsers" -ForegroundColor Red
-    exit 1
+  Write-Host "❌ Failed to install browsers" -ForegroundColor Red
+  exit 1
 }
 Write-Host "✅ Browsers installed" -ForegroundColor Green
 
@@ -41,16 +42,17 @@ Write-Host "✅ Browsers installed" -ForegroundColor Green
 Write-Host ""
 Write-Host "🚀 Step 4: Checking Flutter app status..." -ForegroundColor Yellow
 try {
-    $response = Invoke-WebRequest -Uri "http://localhost:58295" -UseBasicParsing -TimeoutSec 5
-    Write-Host "✅ Flutter app is running on port 58295" -ForegroundColor Green
-} catch {
-    Write-Host "⚠️  Flutter app not accessible on port 58295" -ForegroundColor Yellow
-    Write-Host "   Please start Flutter app with: flutter run -d chrome --web-port=58295" -ForegroundColor Yellow
-    Write-Host ""
-    $response = Read-Host "Continue anyway? (y/N)"
-    if ($response -ne "y" -and $response -ne "Y") {
-        exit 1
-    }
+  $response = Invoke-WebRequest -Uri "http://localhost:58295" -UseBasicParsing -TimeoutSec 5
+  Write-Host "✅ Flutter app is running on port 58295" -ForegroundColor Green
+}
+catch {
+  Write-Host "⚠️  Flutter app not accessible on port 58295" -ForegroundColor Yellow
+  Write-Host "   Please start Flutter app with: flutter run -d chrome --web-port=58295" -ForegroundColor Yellow
+  Write-Host ""
+  $response = Read-Host "Continue anyway? (y/N)"
+  if ($response -ne "y" -and $response -ne "Y") {
+    exit 1
+  }
 }
 
 # Step 5: Run tests
@@ -71,36 +73,37 @@ Write-Host ""
 $choice = Read-Host "Choose option (1-5, default: 1)"
 
 switch ($choice) {
-    "2" {
-        Write-Host "Running tests with browser UI..." -ForegroundColor Green
-        npx playwright test --headed
-    }
-    "3" {
-        Write-Host "Opening Playwright UI..." -ForegroundColor Green
-        npx playwright test --ui
-    }
-    "4" {
-        Write-Host "Running in debug mode..." -ForegroundColor Green
-        npx playwright test --debug
-    }
-    "5" {
-        Write-Host "Opening existing report..." -ForegroundColor Green
-        npx playwright show-report
-        exit 0
-    }
-    default {
-        Write-Host "Running all tests (headless)..." -ForegroundColor Green
-        npx playwright test
-    }
+  "2" {
+    Write-Host "Running tests with browser UI..." -ForegroundColor Green
+    npx playwright test --headed
+  }
+  "3" {
+    Write-Host "Opening Playwright UI..." -ForegroundColor Green
+    npx playwright test --ui
+  }
+  "4" {
+    Write-Host "Running in debug mode..." -ForegroundColor Green
+    npx playwright test --debug
+  }
+  "5" {
+    Write-Host "Opening existing report..." -ForegroundColor Green
+    npx playwright show-report
+    exit 0
+  }
+  default {
+    Write-Host "Running all tests (headless)..." -ForegroundColor Green
+    npx playwright test
+  }
 }
 
 # Check test results
 if ($LASTEXITCODE -eq 0) {
-    Write-Host ""
-    Write-Host "✅ All Playwright tests passed!" -ForegroundColor Green
-} else {
-    Write-Host ""
-    Write-Host "❌ Some Playwright tests failed" -ForegroundColor Red
+  Write-Host ""
+  Write-Host "✅ All Playwright tests passed!" -ForegroundColor Green
+}
+else {
+  Write-Host ""
+  Write-Host "❌ Some Playwright tests failed" -ForegroundColor Red
 }
 
 # Step 6: Show report

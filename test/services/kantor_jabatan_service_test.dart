@@ -93,8 +93,10 @@ void main() {
         // Test that all CRUD methods exist and can be called
         expect(() => KantorService.getAllKantors(), returnsNormally);
         expect(() => KantorService.getKantorById(1), returnsNormally);
-        expect(() => KantorService.createKantor(createRequest), returnsNormally);
-        expect(() => KantorService.updateKantor(1, updateRequest), returnsNormally);
+        expect(
+            () => KantorService.createKantor(createRequest), returnsNormally);
+        expect(() => KantorService.updateKantor(1, updateRequest),
+            returnsNormally);
         expect(() => KantorService.deleteKantor(1), returnsNormally);
       });
 
@@ -168,7 +170,8 @@ void main() {
         expect(jabatan.updatedBy, 1);
       });
 
-      test('JabatanService CRUD methods should exist and be callable', () async {
+      test('JabatanService CRUD methods should exist and be callable',
+          () async {
         final createRequest = CreateJabatanRequest(
           namaJabatan: 'Test Position',
         );
@@ -180,8 +183,10 @@ void main() {
         // Test that all CRUD methods exist and can be called
         expect(() => JabatanService.getAllJabatans(), returnsNormally);
         expect(() => JabatanService.getJabatanById(1), returnsNormally);
-        expect(() => JabatanService.createJabatan(createRequest), returnsNormally);
-        expect(() => JabatanService.updateJabatan(1, updateRequest), returnsNormally);
+        expect(
+            () => JabatanService.createJabatan(createRequest), returnsNormally);
+        expect(() => JabatanService.updateJabatan(1, updateRequest),
+            returnsNormally);
         expect(() => JabatanService.deleteJabatan(1), returnsNormally);
       });
 
@@ -260,7 +265,7 @@ void main() {
         // Test that all services are importable and have expected methods
         expect(KantorService.getAllKantors, isNotNull);
         expect(JabatanService.getAllJabatans, isNotNull);
-        
+
         // These would be used together in a real application
         expect(() => KantorService.getAllKantors(), returnsNormally);
         expect(() => JabatanService.getAllJabatans(), returnsNormally);

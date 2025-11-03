@@ -22,17 +22,20 @@ void main() {
 
       test('login method should exist and handle testuser credentials', () {
         // Test that login method exists and can be called with test credentials
-        expect(() => authProvider.login('testuser', 'password123'), returnsNormally);
+        expect(() => authProvider.login('testuser', 'password123'),
+            returnsNormally);
       });
 
       test('register method should exist and handle user data', () {
         // Test that register method exists and can be called
-        expect(() => authProvider.register(
-          username: 'testuser',
-          email: 'testuser@example.com',
-          password: 'password123',
-          fullName: 'Test User',
-        ), returnsNormally);
+        expect(
+            () => authProvider.register(
+                  username: 'testuser',
+                  email: 'testuser@example.com',
+                  password: 'password123',
+                  fullName: 'Test User',
+                ),
+            returnsNormally);
       });
 
       test('logout method should exist and clear state', () {
@@ -48,7 +51,7 @@ void main() {
       test('clearError method should work correctly', () {
         // Simulate an error state
         authProvider.clearError();
-        
+
         // clearError should not throw and should be callable
         expect(() => authProvider.clearError(), returnsNormally);
       });
@@ -59,7 +62,7 @@ void main() {
         authProvider.addListener(() {
           // Listener callback
         });
-        
+
         authProvider.clearError(); // This should trigger notifyListeners
         // Note: In a real test environment, you might need to pump the widget tree
       });
@@ -92,10 +95,12 @@ void main() {
           jabatanId: 2,
         );
 
-        expect(() => karyawanProvider.createKaryawan(createRequest), returnsNormally);
+        expect(() => karyawanProvider.createKaryawan(createRequest),
+            returnsNormally);
       });
 
-      test('updateKaryawan method should exist and handle employee updates', () {
+      test('updateKaryawan method should exist and handle employee updates',
+          () {
         final updateRequest = UpdateKaryawanRequest(
           nama: 'Jane Smith',
           email: 'jane.smith@company.com',
@@ -104,7 +109,8 @@ void main() {
           jabatanId: 3,
         );
 
-        expect(() => karyawanProvider.updateKaryawan(1, updateRequest), returnsNormally);
+        expect(() => karyawanProvider.updateKaryawan(1, updateRequest),
+            returnsNormally);
       });
 
       test('deleteKaryawan method should exist', () {
@@ -118,11 +124,11 @@ void main() {
 
       test('KaryawanProvider should implement ChangeNotifier', () {
         expect(karyawanProvider, isA<KaryawanProvider>());
-        
+
         karyawanProvider.addListener(() {
           // Listener callback
         });
-        
+
         karyawanProvider.clearError(); // This should trigger notifyListeners
       });
     });
@@ -171,7 +177,8 @@ void main() {
         expect(karyawanProvider.clearError, isNotNull);
       });
 
-      test('authentication flow with testuser should be structured correctly', () {
+      test('authentication flow with testuser should be structured correctly',
+          () {
         final authProvider = AuthProvider();
 
         // Test the expected flow for testuser login
@@ -182,12 +189,14 @@ void main() {
         expect(() => authProvider.login(username, password), returnsNormally);
 
         // Registration should also work with test data
-        expect(() => authProvider.register(
-          username: username,
-          email: 'testuser@example.com',
-          password: password,
-          fullName: 'Test User',
-        ), returnsNormally);
+        expect(
+            () => authProvider.register(
+                  username: username,
+                  email: 'testuser@example.com',
+                  password: password,
+                  fullName: 'Test User',
+                ),
+            returnsNormally);
       });
 
       test('employee management flow should be complete', () {
@@ -213,8 +222,10 @@ void main() {
 
         // Full CRUD operations should be available
         expect(() => karyawanProvider.loadKaryawans(), returnsNormally);
-        expect(() => karyawanProvider.createKaryawan(createRequest), returnsNormally);
-        expect(() => karyawanProvider.updateKaryawan(1, updateRequest), returnsNormally);
+        expect(() => karyawanProvider.createKaryawan(createRequest),
+            returnsNormally);
+        expect(() => karyawanProvider.updateKaryawan(1, updateRequest),
+            returnsNormally);
         expect(() => karyawanProvider.deleteKaryawan(1), returnsNormally);
       });
     });
@@ -231,7 +242,7 @@ void main() {
 
         // Operations that should trigger notifications
         authProvider.clearError();
-        
+
         // At least one notification should occur
         expect(notificationCount, greaterThanOrEqualTo(0));
       });
@@ -246,7 +257,7 @@ void main() {
 
         // Operations that should trigger notifications
         karyawanProvider.clearError();
-        
+
         // At least one notification should occur
         expect(notificationCount, greaterThanOrEqualTo(0));
       });

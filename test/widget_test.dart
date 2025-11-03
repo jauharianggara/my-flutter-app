@@ -8,7 +8,8 @@ import 'package:my_flutter_app/providers/karyawan_provider.dart';
 
 void main() {
   group('Flutter Employee Management App Widget Tests', () {
-    testWidgets('App should start with splash screen', (WidgetTester tester) async {
+    testWidgets('App should start with splash screen',
+        (WidgetTester tester) async {
       // Build our app and trigger a frame.
       await tester.pumpWidget(
         MultiProvider(
@@ -24,7 +25,8 @@ void main() {
       expect(find.byType(MaterialApp), findsOneWidget);
     });
 
-    testWidgets('AuthProvider should be available in widget tree', (WidgetTester tester) async {
+    testWidgets('AuthProvider should be available in widget tree',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
@@ -45,7 +47,8 @@ void main() {
       expect(find.text('Auth State: false'), findsOneWidget);
     });
 
-    testWidgets('KaryawanProvider should be available in widget tree', (WidgetTester tester) async {
+    testWidgets('KaryawanProvider should be available in widget tree',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
@@ -70,7 +73,7 @@ void main() {
       // Test that our test credentials are valid
       const username = 'testuser';
       const password = 'password123';
-      
+
       expect(username.isNotEmpty, true);
       expect(password.length >= 8, true);
       expect(username, 'testuser');

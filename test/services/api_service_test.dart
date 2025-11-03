@@ -11,27 +11,29 @@ void main() {
       // Test that all endpoints are defined correctly
       expect(ApiService.baseUrl, 'http://localhost:8080');
       expect(ApiService.apiPrefix, '/api');
-      
+
       // Authentication endpoints
       expect(ApiService.registerEndpoint, '/api/auth/register');
       expect(ApiService.loginEndpoint, '/api/auth/login');
       expect(ApiService.userProfileEndpoint, '/api/user/me');
-      
+
       // Karyawan endpoints
       expect(ApiService.karyawansEndpoint, '/api/karyawans');
-      expect(ApiService.karyawansWithKantorEndpoint, '/api/karyawans/with-kantor');
-      expect(ApiService.karyawansWithPhotoEndpoint, '/api/karyawans/with-photo');
-      
+      expect(
+          ApiService.karyawansWithKantorEndpoint, '/api/karyawans/with-kantor');
+      expect(
+          ApiService.karyawansWithPhotoEndpoint, '/api/karyawans/with-photo');
+
       // Kantor endpoints
       expect(ApiService.kantorsEndpoint, '/api/kantors');
-      
+
       // Jabatan endpoints
       expect(ApiService.jabatansEndpoint, '/api/jabatans');
     });
 
     test('getHeaders should return proper headers without auth', () async {
       final headers = await ApiService.getHeaders(requireAuth: false);
-      
+
       expect(headers['Content-Type'], 'application/json');
       expect(headers['Accept'], 'application/json');
       expect(headers.containsKey('Authorization'), false);
@@ -135,16 +137,20 @@ void main() {
     test('HTTP methods should be callable', () async {
       // Test that HTTP method calls don't throw compilation errors
       // Note: These will fail at runtime without a backend, but should compile
-      expect(() => ApiService.get('/test', requireAuth: false), returnsNormally);
-      expect(() => ApiService.post('/test', {}, requireAuth: false), returnsNormally);
-      expect(() => ApiService.put('/test', {}, requireAuth: false), returnsNormally);
-      expect(() => ApiService.delete('/test', requireAuth: false), returnsNormally);
+      expect(
+          () => ApiService.get('/test', requireAuth: false), returnsNormally);
+      expect(() => ApiService.post('/test', {}, requireAuth: false),
+          returnsNormally);
+      expect(() => ApiService.put('/test', {}, requireAuth: false),
+          returnsNormally);
+      expect(() => ApiService.delete('/test', requireAuth: false),
+          returnsNormally);
     });
 
     test('URL construction should be correct', () async {
       const endpoint = '/api/test';
       const expectedUrl = '${ApiService.baseUrl}$endpoint';
-      
+
       expect(expectedUrl, 'http://localhost:8080/api/test');
     });
 

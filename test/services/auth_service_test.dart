@@ -4,7 +4,8 @@ import 'package:my_flutter_app/models/user.dart';
 
 void main() {
   group('AuthService Tests with testuser:password123', () {
-    test('LoginRequest should be properly formed with test credentials', () async {
+    test('LoginRequest should be properly formed with test credentials',
+        () async {
       // Test with specified credentials
       const username = 'testuser';
       const password = 'password123';

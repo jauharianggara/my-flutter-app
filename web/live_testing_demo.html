@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -18,13 +19,13 @@
             min-height: 100vh;
             overflow-x: hidden;
         }
-        
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
-        
+
         .header {
             text-align: center;
             margin-bottom: 30px;
@@ -34,7 +35,7 @@
             border-radius: 20px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
-        
+
         .header h1 {
             font-size: 3.5em;
             margin-bottom: 10px;
@@ -44,13 +45,13 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
+
         .subtitle {
             font-size: 1.4em;
             opacity: 0.9;
             margin: 10px 0;
         }
-        
+
         .credentials {
             background: rgba(76, 175, 80, 0.2);
             padding: 15px;
@@ -58,14 +59,14 @@
             margin-top: 15px;
             border-left: 4px solid #4CAF50;
         }
-        
+
         .demo-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
             margin-bottom: 30px;
         }
-        
+
         .demo-panel {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -73,7 +74,7 @@
             padding: 25px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
-        
+
         .demo-title {
             font-size: 1.8em;
             margin-bottom: 20px;
@@ -82,19 +83,19 @@
             border-bottom: 2px solid rgba(255, 255, 255, 0.2);
             padding-bottom: 10px;
         }
-        
+
         .demo-icon {
             font-size: 2em;
             margin-right: 15px;
         }
-        
+
         .test-buttons {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
             margin: 20px 0;
         }
-        
+
         .test-btn {
             background: linear-gradient(135deg, #4CAF50, #45a049);
             color: white;
@@ -107,21 +108,21 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
         }
-        
+
         .test-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
         }
-        
+
         .test-btn.error {
             background: linear-gradient(135deg, #f44336, #da190b);
             box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
         }
-        
+
         .test-btn.error:hover {
             box-shadow: 0 6px 20px rgba(244, 67, 54, 0.4);
         }
-        
+
         .test-output {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 10px;
@@ -133,39 +134,61 @@
             overflow-y: auto;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
+
         .test-output::-webkit-scrollbar {
             width: 8px;
         }
-        
+
         .test-output::-webkit-scrollbar-track {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 4px;
         }
-        
+
         .test-output::-webkit-scrollbar-thumb {
             background: rgba(255, 255, 255, 0.3);
             border-radius: 4px;
         }
-        
+
         .log-line {
             margin: 5px 0;
             padding: 5px;
             border-radius: 4px;
             animation: fadeIn 0.3s ease;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateX(-10px); }
-            to { opacity: 1; transform: translateX(0); }
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
-        
-        .log-success { color: #4CAF50; }
-        .log-error { color: #f44336; }
-        .log-warning { color: #FF9800; }
-        .log-info { color: #2196F3; }
-        .log-highlight { color: #FFD700; font-weight: bold; }
-        
+
+        .log-success {
+            color: #4CAF50;
+        }
+
+        .log-error {
+            color: #f44336;
+        }
+
+        .log-warning {
+            color: #FF9800;
+        }
+
+        .log-info {
+            color: #2196F3;
+        }
+
+        .log-highlight {
+            color: #FFD700;
+            font-weight: bold;
+        }
+
         .comparison-section {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -173,7 +196,7 @@
             padding: 25px;
             margin-top: 30px;
         }
-        
+
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
@@ -182,83 +205,84 @@
             border-radius: 10px;
             overflow: hidden;
         }
-        
+
         .comparison-table th,
         .comparison-table td {
             padding: 15px;
             text-align: left;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
+
         .comparison-table th {
             background: rgba(255, 255, 255, 0.1);
             font-weight: bold;
             color: #FFD700;
         }
-        
+
         .status-indicator {
             padding: 5px 10px;
             border-radius: 20px;
             font-size: 0.8em;
             font-weight: bold;
         }
-        
+
         .status-passed {
             background: #4CAF50;
             color: white;
         }
-        
+
         .status-warning {
             background: #FF9800;
             color: white;
         }
-        
+
         .status-superior {
             background: linear-gradient(45deg, #FFD700, #FFA500);
             color: #000;
         }
-        
+
         .live-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 15px;
             margin: 20px 0;
         }
-        
+
         .stat-card {
             background: rgba(255, 255, 255, 0.1);
             padding: 15px;
             border-radius: 10px;
             text-align: center;
         }
-        
+
         .stat-number {
             font-size: 2.5em;
             font-weight: bold;
             display: block;
             margin-bottom: 5px;
         }
-        
+
         .stat-label {
             font-size: 0.9em;
             opacity: 0.8;
         }
-        
+
         @media (max-width: 768px) {
             .demo-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .header h1 {
                 font-size: 2.5em;
             }
-            
+
             .test-buttons {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -266,8 +290,8 @@
             <div class="subtitle">Employee Management App - Playwright-Style Testing</div>
             <div class="subtitle">Real-time Testing in Chrome Browser</div>
             <div class="credentials">
-                <strong>🔐 Test Credentials:</strong> testuser / password123 | 
-                <strong>🌐 Port:</strong> 58295 | 
+                <strong>🔐 Test Credentials:</strong> testuser / password123 |
+                <strong>🌐 Port:</strong> 58295 |
                 <strong>💻 Platform:</strong> Windows Desktop + Web
             </div>
         </div>
@@ -278,7 +302,7 @@
                     <span class="demo-icon">🎯</span>
                     Interactive Testing
                 </div>
-                
+
                 <div class="test-buttons">
                     <button class="test-btn" onclick="runLoginTest()">
                         🔐 Login Flow Test
@@ -325,7 +349,7 @@
                     <span class="demo-icon">📊</span>
                     Live Test Output
                 </div>
-                
+
                 <div class="test-output" id="testOutput">
                     <div class="log-line log-highlight">🎭 Flutter Playwright-Style Testing Console</div>
                     <div class="log-line log-info">✅ Test environment ready</div>
@@ -406,7 +430,7 @@
             document.getElementById('testsRun').textContent = testsRun;
             document.getElementById('testsPassed').textContent = testsPassed;
             document.getElementById('testsFailed').textContent = testsFailed;
-            
+
             const successRate = testsRun > 0 ? Math.round((testsPassed / testsRun) * 100) : 0;
             document.getElementById('successRate').textContent = successRate + '%';
         }
@@ -445,7 +469,7 @@
         async function runLoginTest() {
             clearOutput();
             addLog('🎭 Starting Login Flow Test (Playwright-style)', 'highlight');
-            
+
             await simulateTestStep('tester.pumpWidget(MyApp()) - Loading app');
             await simulateTestStep('find.byType(TextFormField) - Finding form fields');
             await simulateTestStep('tester.enterText(usernameField, "testuser") - Entering username');
@@ -453,43 +477,43 @@
             await simulateTestStep('tester.tap(loginButton) - Clicking login button');
             await simulateTestStep('await tester.pumpAndSettle() - Waiting for navigation');
             await simulateTestStep('expect(find.text("Dashboard"), findsOneWidget) - Verifying success');
-            
+
             testsRun++;
             testsPassed++;
             updateStats();
-            
+
             addLog('🎉 Login flow test completed successfully!', 'highlight');
         }
 
         async function runResponsiveTest() {
             clearOutput();
             addLog('🎭 Starting Responsive Design Test', 'highlight');
-            
+
             await simulateTestStep('📱 tester.binding.setSurfaceSize(Size(375, 667)) - Mobile viewport');
             await simulateTestStep('✅ Verifying mobile layout adaptation');
             await simulateTestStep('📟 tester.binding.setSurfaceSize(Size(768, 1024)) - Tablet viewport');
             await simulateTestStep('✅ Verifying tablet layout adaptation');
             await simulateTestStep('💻 tester.binding.setSurfaceSize(Size(1920, 1080)) - Desktop viewport');
             await simulateTestStep('✅ Verifying desktop layout adaptation');
-            
+
             testsRun++;
             testsPassed++;
             updateStats();
-            
+
             addLog('🎉 Responsive design test completed!', 'highlight');
         }
 
         async function runPerformanceTest() {
             clearOutput();
             addLog('🎭 Starting Performance Test', 'highlight');
-            
+
             await simulateTestStep('⏱️ final stopwatch = Stopwatch()..start() - Starting timer');
             await simulateTestStep('🚀 await tester.pumpWidget(MyApp()) - Loading app');
-            
+
             // Simulate random performance metrics
             const loadTime = Math.floor(Math.random() * 1000) + 500;
             await simulateTestStep(`⏹️ stopwatch.stop() - App loaded in ${loadTime}ms`);
-            
+
             if (loadTime < 1000) {
                 await simulateTestStep('✅ expect(loadTime, lessThan(1000)) - Performance excellent!');
                 testsPassed++;
@@ -497,65 +521,65 @@
                 await simulateTestStep('⚠️ Performance within acceptable range', 'warning');
                 testsPassed++;
             }
-            
+
             testsRun++;
             updateStats();
-            
+
             addLog('🎉 Performance test completed!', 'highlight');
         }
 
         async function runFormValidationTest() {
             clearOutput();
             addLog('🎭 Starting Form Validation Test', 'highlight');
-            
+
             await simulateTestStep('📝 Testing empty form submission...');
             await simulateTestStep('tester.tap(submitButton) - Submitting empty form');
             await simulateTestStep('expect(find.textContaining("required"), findsAtLeast(1)) - Validation triggered');
             await simulateTestStep('📧 Testing invalid email format...');
             await simulateTestStep('tester.enterText(emailField, "invalid-email") - Invalid email');
             await simulateTestStep('✅ Email validation working correctly');
-            
+
             testsRun++;
             testsPassed++;
             updateStats();
-            
+
             addLog('🎉 Form validation test completed!', 'highlight');
         }
 
         async function runErrorTest() {
             clearOutput();
             addLog('🎭 Starting Error Handling Test', 'highlight');
-            
+
             await simulateTestStep('🔑 tester.enterText(usernameField, "wronguser") - Wrong username');
             await simulateTestStep('🔒 tester.enterText(passwordField, "wrongpass") - Wrong password');
             await simulateTestStep('👆 tester.tap(loginButton) - Attempting login');
             await simulateTestStep('❌ HTTP 401: Unauthorized - Expected error', 'error');
             await simulateTestStep('✅ expect(find.textContaining("Invalid"), findsOneWidget) - Error displayed correctly');
-            
+
             testsRun++;
             testsPassed++;
             updateStats();
-            
+
             addLog('🎉 Error handling test completed!', 'highlight');
         }
 
         async function runAllTests() {
             addLog('🚀 Starting Comprehensive Test Suite...', 'highlight');
-            
+
             await runLoginTest();
             await new Promise(resolve => setTimeout(resolve, 1000));
-            
+
             await runResponsiveTest();
             await new Promise(resolve => setTimeout(resolve, 1000));
-            
+
             await runPerformanceTest();
             await new Promise(resolve => setTimeout(resolve, 1000));
-            
+
             await runFormValidationTest();
             await new Promise(resolve => setTimeout(resolve, 1000));
-            
+
             await runErrorTest();
-            
+
             addLog('', 'info');
             addLog('🎊 ALL TESTS COMPLETED SUCCESSFULLY!', 'highlight');
             addLog('📊 Test Summary:', 'info');
@@ -592,4 +616,5 @@
         }, 3000);
     </script>
 </body>
+
 </html>

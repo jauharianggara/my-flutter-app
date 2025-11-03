@@ -20,7 +20,8 @@ function Stop-ProcessSafely {
         $processes | Stop-Process -Force -ErrorAction SilentlyContinue
         Start-Sleep -Seconds 2
         Write-Host "$ProcessName processes terminated."
-    } else {
+    }
+    else {
         Write-Host "No $ProcessName processes found."
     }
 }
@@ -75,7 +76,8 @@ try {
     
     & flutter @runArgs
     
-} catch {
+}
+catch {
     Write-Host "Error occurred: $($_.Exception.Message)"
     
     # Final cleanup

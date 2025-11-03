@@ -297,39 +297,38 @@ flutter analyze
    flutter packages pub run build_runner build --delete-conflicting-outputs
    ```
 
-4. **Windows: "cannot open .exe for writing" error**
-   This happens when the app process is still running:
+4. **Windows: "cannot open .exe for writing" error** This happens when the app
+   process is still running:
    ```bash
    # Kill existing process
    taskkill /f /im my_flutter_app.exe
-   
+
    # Clean and rebuild
    flutter clean
    flutter pub get
    flutter run -d windows --observatory-port=58295 --enable-software-rendering
    ```
-   
+
    Or use the automated scripts:
    ```bash
    # Quick fix
    run_windows.bat
-   
+
    # Complete troubleshooting
    troubleshoot_windows.bat
    ```
 
-5. **VS Code Task Issues**
-   Use these VS Code tasks for better Windows development:
+5. **VS Code Task Issues** Use these VS Code tasks for better Windows
+   development:
    - "Flutter Run (Windows - Port 58295)" - Standard run
    - "Flutter Clean & Run (Windows - Port 58295)" - Clean + run
    - "Kill Flutter App Process" - Force kill hanging processes
 
-6. **Debug Connection Issues**
-   If debug tools don't connect properly:
+6. **Debug Connection Issues** If debug tools don't connect properly:
    ```bash
    # Try with software rendering
    flutter run -d windows --observatory-port=58295 --enable-software-rendering
-   
+
    # Or use verbose output to debug
    flutter run -d windows --observatory-port=58295 --verbose
    ```

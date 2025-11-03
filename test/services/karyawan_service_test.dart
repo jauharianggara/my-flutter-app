@@ -113,7 +113,8 @@ void main() {
         },
       };
 
-      final karyawanWithKantor = KaryawanWithKantor.fromJson(karyawanWithKantorJson);
+      final karyawanWithKantor =
+          KaryawanWithKantor.fromJson(karyawanWithKantorJson);
 
       expect(karyawanWithKantor.id, 1);
       expect(karyawanWithKantor.nama, 'Test Employee');
@@ -169,11 +170,15 @@ void main() {
 
       // Test that all CRUD methods exist and can be called
       expect(() => KaryawanService.getAllKaryawans(), returnsNormally);
-      expect(() => KaryawanService.getAllKaryawansWithKantor(), returnsNormally);
+      expect(
+          () => KaryawanService.getAllKaryawansWithKantor(), returnsNormally);
       expect(() => KaryawanService.getKaryawanById(1), returnsNormally);
-      expect(() => KaryawanService.getKaryawanWithKantorById(1), returnsNormally);
-      expect(() => KaryawanService.createKaryawan(createRequest), returnsNormally);
-      expect(() => KaryawanService.updateKaryawan(1, updateRequest), returnsNormally);
+      expect(
+          () => KaryawanService.getKaryawanWithKantorById(1), returnsNormally);
+      expect(
+          () => KaryawanService.createKaryawan(createRequest), returnsNormally);
+      expect(() => KaryawanService.updateKaryawan(1, updateRequest),
+          returnsNormally);
       expect(() => KaryawanService.deleteKaryawan(1), returnsNormally);
     });
 
@@ -211,8 +216,10 @@ void main() {
 
     test('Employee search and filter functionality', () async {
       // Test that we can call methods that would typically be used for search/filter
-      expect(() => KaryawanService.getAllKaryawansWithKantor(), returnsNormally);
-      expect(() => KaryawanService.getKaryawanWithKantorById(1), returnsNormally);
+      expect(
+          () => KaryawanService.getAllKaryawansWithKantor(), returnsNormally);
+      expect(
+          () => KaryawanService.getKaryawanWithKantorById(1), returnsNormally);
     });
   });
 }
