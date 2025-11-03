@@ -1,0 +1,5 @@
+This is a test document file used for file validation testing.
+It should NOT be accepted by the photo upload functionality.
+
+This file tests that the application properly validates file types
+and only accepts image files for employee photos.

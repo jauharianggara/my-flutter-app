@@ -1,0 +1,106 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Flutter Run",
+			"type": "shell",
+			"command": "flutter run",
+			"isBackground": true,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Flutter Run (Windows - Port 58295)",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"run",
+				"-d",
+				"windows",
+				"--observatory-port=58295"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared"
+			},
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Flutter Build (Windows)",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"build",
+				"windows"
+			],
+			"group": "build",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Flutter Clean",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"clean"
+			],
+			"group": "build",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Kill Flutter App Process",
+			"type": "shell",
+			"command": "taskkill",
+			"args": [
+				"/f",
+				"/im",
+				"my_flutter_app.exe"
+			],
+			"group": "build",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Flutter Clean & Run (Windows - Port 58295)",
+			"dependsOrder": "sequence",
+			"dependsOn": [
+				"Kill Flutter App Process",
+				"Flutter Clean",
+				"Flutter Run (Windows - Port 58295)"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared"
+			}
+		}
+	]
+}

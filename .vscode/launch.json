@@ -1,0 +1,37 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Flutter (All Devices)",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "Flutter (Windows - Port 58295)",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "windows",
+            "args": [
+                "--observatory-port=58295"
+            ]
+        },
+        {
+            "name": "Flutter (Debug Mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug"
+        },
+        {
+            "name": "Flutter (Profile Mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "Flutter (Release Mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
