@@ -1,12 +1,14 @@
 # GitHub Actions Workflows
 
-This repository uses GitHub Actions for CI/CD automation. Here's what each workflow does:
+This repository uses GitHub Actions for CI/CD automation. Here's what each
+workflow does:
 
 ## 🔄 CI/CD Pipeline (`ci.yml`)
 
 **Triggers:** Push to `main`/`develop`, Pull Requests to `main`
 
 **What it does:**
+
 - **Test Job**: Runs on Ubuntu
   - Checks code formatting with `dart format`
   - Analyzes code with `flutter analyze`
@@ -23,6 +25,7 @@ This repository uses GitHub Actions for CI/CD automation. Here's what each workf
 **Triggers:** Git tags starting with `v*` (e.g., `v1.0.0`)
 
 **What it does:**
+
 - Runs tests to ensure quality
 - Builds Android APK and App Bundle
 - Creates GitHub release with built artifacts
@@ -33,7 +36,8 @@ This repository uses GitHub Actions for CI/CD automation. Here's what each workf
 **Triggers:** Push to `main`/`develop`, Pull Requests to `main`
 
 **What it does:**
-- **Static Analysis**: 
+
+- **Static Analysis**:
   - Code formatting checks
   - Dart analyzer with fatal infos
   - Dependency validation
@@ -46,11 +50,13 @@ This repository uses GitHub Actions for CI/CD automation. Here's what each workf
 
 ## 📦 Dependency Updates (`dependencies.yml`)
 
-**Triggers:** 
+**Triggers:**
+
 - Schedule: Every Monday at 9 AM UTC
 - Manual trigger via workflow_dispatch
 
 **What it does:**
+
 - Checks for outdated dependencies
 - Updates to latest versions
 - Runs tests to ensure compatibility
@@ -58,11 +64,13 @@ This repository uses GitHub Actions for CI/CD automation. Here's what each workf
 
 ## 🌐 Deploy to GitHub Pages (`deploy.yml`)
 
-**Triggers:** 
+**Triggers:**
+
 - Push to `main` branch
 - Manual trigger via workflow_dispatch
 
 **What it does:**
+
 - Builds Flutter web app
 - Configures for GitHub Pages deployment
 - Deploys to GitHub Pages
@@ -71,17 +79,20 @@ This repository uses GitHub Actions for CI/CD automation. Here's what each workf
 ## 🛠️ Setup Instructions
 
 ### 1. Enable GitHub Actions
+
 1. Go to your repository settings
 2. Navigate to "Actions" → "General"
 3. Ensure "Allow all actions and reusable workflows" is selected
 
 ### 2. Enable GitHub Pages
+
 1. Go to repository "Settings" → "Pages"
 2. Source: "Deploy from a branch" or "GitHub Actions"
 3. If using branch: select `gh-pages` branch
 4. If using GitHub Actions: workflows will handle deployment
 
 ### 3. Add Secrets (if needed)
+
 For private repositories or additional features:
 
 1. Go to "Settings" → "Secrets and variables" → "Actions"
@@ -90,7 +101,9 @@ For private repositories or additional features:
    - `ANDROID_KEYSTORE_*` (for signed Android builds)
 
 ### 4. Configure Permissions
+
 For GitHub Pages deployment:
+
 1. Go to "Settings" → "Actions" → "General"
 2. Workflow permissions: "Read and write permissions"
 3. Check "Allow GitHub Actions to create and approve pull requests"
@@ -120,6 +133,7 @@ Add these badges to your README:
 ## 🔧 Customization
 
 ### Adding New Platforms
+
 To add iOS builds, add this job to `ci.yml`:
 
 ```yaml
@@ -128,42 +142,44 @@ build-ios:
   runs-on: macos-latest
   needs: test
   if: github.ref == 'refs/heads/main'
-  
+
   steps:
-  - name: Checkout code
-    uses: actions/checkout@v4
-    
-  - name: Setup Flutter
-    uses: subosito/flutter-action@v2
-    with:
-      flutter-version: '3.24.3'
-      channel: 'stable'
-      
-  - name: Install dependencies
-    run: flutter pub get
-    
-  - name: Generate model files
-    run: flutter packages pub run build_runner build --delete-conflicting-outputs
-    
-  - name: Build iOS app
-    run: flutter build ios --release --no-codesign
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: "3.24.3"
+        channel: "stable"
+
+    - name: Install dependencies
+      run: flutter pub get
+
+    - name: Generate model files
+      run: flutter packages pub run build_runner build --delete-conflicting-outputs
+
+    - name: Build iOS app
+      run: flutter build ios --release --no-codesign
 ```
 
 ### Modifying Triggers
+
 Change workflow triggers by editing the `on:` section:
 
 ```yaml
 on:
   push:
-    branches: [ main, develop, staging ]
+    branches: [main, develop, staging]
   pull_request:
-    branches: [ main ]
+    branches: [main]
   schedule:
-    - cron: '0 2 * * *'  # Daily at 2 AM
-  workflow_dispatch:     # Manual trigger
+    - cron: "0 2 * * *" # Daily at 2 AM
+  workflow_dispatch: # Manual trigger
 ```
 
 ### Environment-Specific Builds
+
 Add environment-specific configurations:
 
 ```yaml
@@ -212,9 +228,9 @@ include:
      workflow_dispatch:
        inputs:
          debug:
-           description: 'Enable debug mode'
+           description: "Enable debug mode"
            required: false
-           default: 'false'
+           default: "false"
    ```
 
 ## 📝 Next Steps

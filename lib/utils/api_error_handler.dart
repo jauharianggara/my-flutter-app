@@ -7,7 +7,7 @@ class ApiErrorHandler {
     if (error is SocketException) {
       return AppConfig.networkErrorMessage;
     } else if (error is http.ClientException) {
-      if (error.message.contains('Failed to fetch') || 
+      if (error.message.contains('Failed to fetch') ||
           error.message.contains('Connection refused') ||
           error.message.contains('Network is unreachable')) {
         return AppConfig.networkErrorMessage;
@@ -21,7 +21,7 @@ class ApiErrorHandler {
       return 'Terjadi kesalahan: ${error.toString()}';
     }
   }
-  
+
   static String handleHttpError(int statusCode, String? responseBody) {
     switch (statusCode) {
       case 400:
@@ -42,12 +42,12 @@ class ApiErrorHandler {
         return 'Kesalahan HTTP: $statusCode';
     }
   }
-  
+
   static bool isNetworkError(dynamic error) {
-    return error is SocketException || 
-           (error is http.ClientException && 
+    return error is SocketException ||
+        (error is http.ClientException &&
             (error.message.contains('Failed to fetch') ||
-             error.message.contains('Connection refused') ||
-             error.message.contains('Network is unreachable')));
+                error.message.contains('Connection refused') ||
+                error.message.contains('Network is unreachable')));
   }
 }

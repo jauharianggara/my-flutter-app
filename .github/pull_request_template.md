@@ -1,30 +1,37 @@
 ## Description
+
 Brief description of the changes in this PR.
 
 ## Type of Change
+
 - [ ] Bug fix (non-breaking change which fixes an issue)
 - [ ] New feature (non-breaking change which adds functionality)
-- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- [ ] Breaking change (fix or feature that would cause existing functionality to
+      not work as expected)
 - [ ] Documentation update
 - [ ] Code refactoring
 - [ ] Performance improvement
 - [ ] Test improvement
 
 ## Changes Made
+
 - List the specific changes made
 - Include any new dependencies added
 - Mention any breaking changes
 
 ## Testing
+
 - [ ] Unit tests pass
 - [ ] Integration tests pass
 - [ ] Manual testing completed
 - [ ] No new warnings or errors
 
 ## Screenshots (if applicable)
+
 Add screenshots to show the changes in UI
 
 ## Checklist
+
 - [ ] My code follows the style guidelines of this project
 - [ ] I have performed a self-review of my own code
 - [ ] I have commented my code, particularly in hard-to-understand areas
@@ -34,7 +41,9 @@ Add screenshots to show the changes in UI
 - [ ] New and existing unit tests pass locally with my changes
 
 ## Related Issues
+
 Closes #(issue number)
 
 ## Additional Notes
+
 Any additional information that reviewers should know.

@@ -162,7 +162,8 @@ class ApiService {
     }
 
     try {
-      final response = await http.get(url, headers: headers)
+      final response = await http
+          .get(url, headers: headers)
           .timeout(AppConfig.connectionTimeout);
 
       if (AppConfig.enableDebugLogs) {
@@ -177,7 +178,7 @@ class ApiService {
         print('=== API GET Error ===');
         print('Error: $e');
       }
-      
+
       final errorMessage = ApiErrorHandler.handleError(e);
       throw Exception(errorMessage);
     }
@@ -196,11 +197,13 @@ class ApiService {
     }
 
     try {
-      final response = await http.post(
-        url,
-        headers: headers,
-        body: json.encode(body),
-      ).timeout(AppConfig.connectionTimeout);
+      final response = await http
+          .post(
+            url,
+            headers: headers,
+            body: json.encode(body),
+          )
+          .timeout(AppConfig.connectionTimeout);
 
       if (AppConfig.enableDebugLogs) {
         print('=== API POST Response ===');
@@ -214,7 +217,7 @@ class ApiService {
         print('=== API POST Error ===');
         print('Error: $e');
       }
-      
+
       final errorMessage = ApiErrorHandler.handleError(e);
       throw Exception(errorMessage);
     }

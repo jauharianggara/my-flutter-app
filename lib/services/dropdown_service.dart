@@ -11,7 +11,8 @@ class Kantor {
   factory Kantor.fromJson(Map<String, dynamic> json) {
     return Kantor(
       id: json['id'],
-      nama: json['nama_kantor'] ?? json['nama'] ?? '', // Handle both field names
+      nama:
+          json['nama_kantor'] ?? json['nama'] ?? '', // Handle both field names
     );
   }
 }
@@ -26,7 +27,8 @@ class Jabatan {
   factory Jabatan.fromJson(Map<String, dynamic> json) {
     return Jabatan(
       id: json['id'],
-      nama: json['nama_jabatan'] ?? json['nama'] ?? '', // Handle both field names
+      nama:
+          json['nama_jabatan'] ?? json['nama'] ?? '', // Handle both field names
     );
   }
 }

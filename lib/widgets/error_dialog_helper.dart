@@ -71,7 +71,7 @@ class ErrorDialogHelper {
 
   static void showApiError(BuildContext context, String error) {
     final isNetworkError = ApiErrorHandler.isNetworkError(error);
-    
+
     if (isNetworkError) {
       showNetworkError(context);
       return;
@@ -119,7 +119,8 @@ class ErrorDialogHelper {
             ),
             const SizedBox(height: 12),
             _buildInfoRow('URL Server', AppConfig.apiBaseUrl),
-            _buildInfoRow('Timeout', '${AppConfig.connectionTimeout.inSeconds}s'),
+            _buildInfoRow(
+                'Timeout', '${AppConfig.connectionTimeout.inSeconds}s'),
             _buildInfoRow('Status', AppConfig.isLocalhost ? 'Lokal' : 'Remote'),
             const SizedBox(height: 16),
             if (AppConfig.isLocalhost) ...[
@@ -135,7 +136,8 @@ class ErrorDialogHelper {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.warning, size: 16, color: Colors.orange[700]),
+                        Icon(Icons.warning,
+                            size: 16, color: Colors.orange[700]),
                         const SizedBox(width: 8),
                         const Text(
                           'Untuk Server Lokal:',

@@ -1,6 +1,7 @@
 # Contributing to Employee Management Flutter App
 
-We're excited that you're interested in contributing to this project! This document provides guidelines and information for contributors.
+We're excited that you're interested in contributing to this project! This
+document provides guidelines and information for contributors.
 
 ## Table of Contents
 
@@ -61,7 +62,8 @@ We're excited that you're interested in contributing to this project! This docum
 
 ### Dart/Flutter Guidelines
 
-- Follow the [Dart Style Guide](https://dart.dev/guides/language/effective-dart/style)
+- Follow the
+  [Dart Style Guide](https://dart.dev/guides/language/effective-dart/style)
 - Use `flutter format` to format your code
 - Ensure `flutter analyze` passes without warnings
 - Use meaningful variable and function names
@@ -137,6 +139,7 @@ type(scope): description
 ```
 
 Types:
+
 - `feat`: A new feature
 - `fix`: A bug fix
 - `docs`: Documentation only changes
@@ -146,6 +149,7 @@ Types:
 - `chore`: Maintenance tasks
 
 Examples:
+
 ```
 feat(auth): add JWT token refresh functionality
 fix(ui): resolve responsive layout issues on mobile
@@ -261,6 +265,7 @@ group('AuthService', () {
 ### Recognition
 
 Contributors will be recognized in:
+
 - GitHub contributors list
 - Release notes for significant contributions
 - Project documentation
@@ -300,6 +305,7 @@ flutter format .
 ### VS Code Tasks
 
 Use these VS Code tasks for efficient development:
+
 - "Flutter Run (Windows - Port 58295)"
 - "Flutter Clean & Run"
 - "Kill Flutter App Process"
@@ -309,7 +315,8 @@ Use these VS Code tasks for efficient development:
 If you have questions that aren't covered here:
 
 1. Check the [README.md](README.md) for setup instructions
-2. Look through existing [issues](https://github.com/jauharianggara/my-flutter-app/issues)
+2. Look through existing
+   [issues](https://github.com/jauharianggara/my-flutter-app/issues)
 3. Create a new issue with the "question" label
 
 Thank you for contributing! 🚀

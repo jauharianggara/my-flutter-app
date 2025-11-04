@@ -136,7 +136,7 @@ class KaryawanService {
       print('DEBUG: Update Karyawan Request:');
       print('DEBUG: ID: $id');
       print('DEBUG: Request JSON: ${request.toJson()}');
-      
+
       final response = await ApiService.put(
         '${ApiService.karyawansEndpoint}/$id',
         request.toJson(),

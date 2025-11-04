@@ -50,45 +50,51 @@ class _EditKaryawanScreenState extends State<EditKaryawanScreen> {
   Future<void> _loadData() async {
     try {
       print('DEBUG: Starting _loadData for karyawan ID: ${widget.karyawan.id}');
-      
+
       // Load karyawan detail untuk mendapatkan email dan telepon
-      final karyawanResponse = await KaryawanService.getKaryawanById(widget.karyawan.id);
+      final karyawanResponse =
+          await KaryawanService.getKaryawanById(widget.karyawan.id);
       print('DEBUG: Karyawan response success: ${karyawanResponse.success}');
       if (!karyawanResponse.success) {
         print('DEBUG: Karyawan error: ${karyawanResponse.message}');
       }
-      
+
       // Load dropdown data
       final kantorResponse = await KantorService.getAllKantors();
       print('DEBUG: Kantor response success: ${kantorResponse.success}');
       if (!kantorResponse.success) {
         print('DEBUG: Kantor error: ${kantorResponse.message}');
       }
-      
+
       final jabatanResponse = await JabatanService.getAllJabatans();
       print('DEBUG: Jabatan response success: ${jabatanResponse.success}');
       if (!jabatanResponse.success) {
         print('DEBUG: Jabatan error: ${jabatanResponse.message}');
       }
 
-      if (karyawanResponse.success && kantorResponse.success && jabatanResponse.success) {
+      if (karyawanResponse.success &&
+          kantorResponse.success &&
+          jabatanResponse.success) {
         print('DEBUG: All API calls successful, setting state');
         setState(() {
           _karyawanDetail = karyawanResponse.data;
           _kantors = kantorResponse.data ?? [];
           _jabatans = jabatanResponse.data ?? [];
-          
-          print('DEBUG: Loaded ${_kantors.length} kantors and ${_jabatans.length} jabatans');
-          
+
+          print(
+              'DEBUG: Loaded ${_kantors.length} kantors and ${_jabatans.length} jabatans');
+
           // Set email dan telepon dari detail data
           if (_karyawanDetail != null) {
             _emailController.text = _karyawanDetail!.email ?? '';
             _telefonController.text = _karyawanDetail!.telefon ?? '';
-            _gajiController.text = _karyawanDetail!.gaji?.toString() ?? '0'; // Set gaji
+            _gajiController.text =
+                _karyawanDetail!.gaji?.toString() ?? '0'; // Set gaji
             print('DEBUG: Set email: ${_karyawanDetail!.email ?? ""}');
-            print('DEBUG: Set gaji: ${_karyawanDetail!.gaji?.toString() ?? "0"}');
+            print(
+                'DEBUG: Set gaji: ${_karyawanDetail!.gaji?.toString() ?? "0"}');
           }
-          
+
           _isLoading = false;
         });
       } else {
@@ -96,10 +102,13 @@ class _EditKaryawanScreenState extends State<EditKaryawanScreen> {
           _isLoading = false;
         });
         String errorDetails = '';
-        if (!karyawanResponse.success) errorDetails += 'Karyawan: ${karyawanResponse.message}. ';
-        if (!kantorResponse.success) errorDetails += 'Kantor: ${kantorResponse.message}. ';
-        if (!jabatanResponse.success) errorDetails += 'Jabatan: ${jabatanResponse.message}. ';
-        
+        if (!karyawanResponse.success)
+          errorDetails += 'Karyawan: ${karyawanResponse.message}. ';
+        if (!kantorResponse.success)
+          errorDetails += 'Kantor: ${kantorResponse.message}. ';
+        if (!jabatanResponse.success)
+          errorDetails += 'Jabatan: ${jabatanResponse.message}. ';
+
         print('DEBUG: Some API calls failed: $errorDetails');
         _showErrorSnackBar('Gagal memuat data: $errorDetails');
       }
@@ -129,15 +138,17 @@ class _EditKaryawanScreenState extends State<EditKaryawanScreen> {
     try {
       final request = UpdateKaryawanRequest(
         nama: _namaController.text.trim(),
-        email: _emailController.text.trim().isEmpty 
-            ? null 
+        email: _emailController.text.trim().isEmpty
+            ? null
             : _emailController.text.trim(),
         telefon: _telefonController.text.trim().isEmpty
             ? null
             : _telefonController.text.trim(),
-        gaji: _gajiController.text.trim().isEmpty 
-            ? null 
-            : double.tryParse(_gajiController.text.trim())?.toInt().toString(), // Convert to int string
+        gaji: _gajiController.text.trim().isEmpty
+            ? null
+            : double.tryParse(_gajiController.text.trim())
+                ?.toInt()
+                .toString(), // Convert to int string
         kantorId: _selectedKantorId!.toString(), // Convert to string
         jabatanId: _selectedJabatanId!.toString(), // Convert to string
       );
@@ -145,9 +156,12 @@ class _EditKaryawanScreenState extends State<EditKaryawanScreen> {
       // Debug logging
       print('DEBUG: Form data before sending:');
       print('DEBUG: Nama: ${_namaController.text.trim()}');
-      print('DEBUG: Email: ${_emailController.text.trim().isEmpty ? "null" : _emailController.text.trim()}');
-      print('DEBUG: Telefon: ${_telefonController.text.trim().isEmpty ? "null" : _telefonController.text.trim()}');
-      print('DEBUG: Gaji: ${_gajiController.text.trim().isEmpty ? "null" : _gajiController.text.trim()}');
+      print(
+          'DEBUG: Email: ${_emailController.text.trim().isEmpty ? "null" : _emailController.text.trim()}');
+      print(
+          'DEBUG: Telefon: ${_telefonController.text.trim().isEmpty ? "null" : _telefonController.text.trim()}');
+      print(
+          'DEBUG: Gaji: ${_gajiController.text.trim().isEmpty ? "null" : _gajiController.text.trim()}');
       print('DEBUG: KantorId: $_selectedKantorId');
       print('DEBUG: JabatanId: $_selectedJabatanId');
       print('DEBUG: Request object: $request');
@@ -160,8 +174,7 @@ class _EditKaryawanScreenState extends State<EditKaryawanScreen> {
       if (response.success) {
         if (mounted) {
           // Refresh data di provider
-          Provider.of<KaryawanProvider>(context, listen: false)
-              .loadKaryawans();
+          Provider.of<KaryawanProvider>(context, listen: false).loadKaryawans();
 
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
