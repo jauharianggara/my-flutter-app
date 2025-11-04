@@ -31,7 +31,8 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () {
-              Provider.of<KaryawanProvider>(context, listen: false).loadKaryawans();
+              Provider.of<KaryawanProvider>(context, listen: false)
+                  .loadKaryawans();
             },
           ),
         ],
@@ -167,7 +168,7 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
                     : null,
               ),
               const SizedBox(width: 16),
-              
+
               // Info
               Expanded(
                 child: Column(
@@ -213,7 +214,7 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
                   ],
                 ),
               ),
-              
+
               // Actions
               PopupMenuButton<String>(
                 onSelected: (value) {
@@ -291,7 +292,7 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
                   ),
                 ),
               ),
-              
+
               // Header
               Row(
                 children: [
@@ -299,7 +300,8 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
                     radius: 40,
                     backgroundColor: Colors.blue[100],
                     backgroundImage: karyawan.fotoPath != null
-                        ? NetworkImage('http://localhost:8080/${karyawan.fotoPath}')
+                        ? NetworkImage(
+                            'http://localhost:8080/${karyawan.fotoPath}')
                         : null,
                     child: karyawan.fotoPath == null
                         ? Text(
@@ -338,21 +340,22 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
                   ),
                 ],
               ),
-              
+
               const SizedBox(height: 24),
-              
+
               // Details
               if (karyawan.gaji != null)
-                _buildDetailItem('Gaji', 'Rp ${karyawan.gaji?.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}'),
+                _buildDetailItem('Gaji',
+                    'Rp ${karyawan.gaji?.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}'),
               if (karyawan.kantorNama != null)
                 _buildDetailItem('Kantor', karyawan.kantorNama!),
               if (karyawan.jabatanNama != null)
                 _buildDetailItem('Jabatan', karyawan.jabatanNama!),
               if (karyawan.fotoOriginalName != null)
                 _buildDetailItem('Nama File Foto', karyawan.fotoOriginalName!),
-              
+
               const SizedBox(height: 16),
-              
+
               // Action Buttons
               Row(
                 children: [
@@ -432,15 +435,17 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
           TextButton(
             onPressed: () async {
               Navigator.pop(context);
-              final karyawanProvider = Provider.of<KaryawanProvider>(context, listen: false);
-              
-              final success = await karyawanProvider.deleteKaryawan(karyawan.id);
-              
+              final karyawanProvider =
+                  Provider.of<KaryawanProvider>(context, listen: false);
+
+              final success =
+                  await karyawanProvider.deleteKaryawan(karyawan.id);
+
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
-                      success 
+                      success
                           ? 'Karyawan berhasil dihapus'
                           : 'Gagal menghapus karyawan: ${karyawanProvider.errorMessage}',
                     ),

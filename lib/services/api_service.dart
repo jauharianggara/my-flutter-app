@@ -120,7 +120,7 @@ class ApiService {
             message: jsonData['message'] ?? '',
             data: items,
             // Handle null errors properly
-            errors: jsonData['errors'] != null 
+            errors: jsonData['errors'] != null
                 ? List<String>.from(jsonData['errors'])
                 : null,
           );

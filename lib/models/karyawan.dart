@@ -42,7 +42,8 @@ class Karyawan {
     required this.updatedAt,
   });
 
-  factory Karyawan.fromJson(Map<String, dynamic> json) => _$KaryawanFromJson(json);
+  factory Karyawan.fromJson(Map<String, dynamic> json) =>
+      _$KaryawanFromJson(json);
   Map<String, dynamic> toJson() => _$KaryawanToJson(this);
 }
 
@@ -97,7 +98,8 @@ class KaryawanWithKantor {
     required this.updatedAt,
   });
 
-  factory KaryawanWithKantor.fromJson(Map<String, dynamic> json) => _$KaryawanWithKantorFromJson(json);
+  factory KaryawanWithKantor.fromJson(Map<String, dynamic> json) =>
+      _$KaryawanWithKantorFromJson(json);
   Map<String, dynamic> toJson() => _$KaryawanWithKantorToJson(this);
 }
 
@@ -119,7 +121,8 @@ class CreateKaryawanRequest {
     required this.jabatanId,
   });
 
-  factory CreateKaryawanRequest.fromJson(Map<String, dynamic> json) => _$CreateKaryawanRequestFromJson(json);
+  factory CreateKaryawanRequest.fromJson(Map<String, dynamic> json) =>
+      _$CreateKaryawanRequestFromJson(json);
   Map<String, dynamic> toJson() => _$CreateKaryawanRequestToJson(this);
 }
 
@@ -141,6 +144,7 @@ class UpdateKaryawanRequest {
     required this.jabatanId,
   });
 
-  factory UpdateKaryawanRequest.fromJson(Map<String, dynamic> json) => _$UpdateKaryawanRequestFromJson(json);
+  factory UpdateKaryawanRequest.fromJson(Map<String, dynamic> json) =>
+      _$UpdateKaryawanRequestFromJson(json);
   Map<String, dynamic> toJson() => _$UpdateKaryawanRequestToJson(this);
 }

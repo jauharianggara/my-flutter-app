@@ -19,7 +19,7 @@ class AuthService {
       if (response.statusCode >= 200 && response.statusCode < 300) {
         if (jsonData['success'] == true && jsonData['data'] != null) {
           final data = jsonData['data'] as Map<String, dynamic>;
-          
+
           // Extract nested data and create LoginResponse
           final loginResponse = LoginResponse(
             user: User.fromJson(data['user'] as Map<String, dynamic>),
@@ -32,7 +32,7 @@ class AuthService {
             message: jsonData['message'] ?? 'Login successful',
             data: loginResponse,
             // Handle null errors properly
-            errors: jsonData['errors'] != null 
+            errors: jsonData['errors'] != null
                 ? List<String>.from(jsonData['errors'])
                 : null,
           );

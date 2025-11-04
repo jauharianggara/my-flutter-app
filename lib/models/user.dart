@@ -40,7 +40,8 @@ class LoginResponse {
     required this.expiresIn,
   });
 
-  factory LoginResponse.fromJson(Map<String, dynamic> json) => _$LoginResponseFromJson(json);
+  factory LoginResponse.fromJson(Map<String, dynamic> json) =>
+      _$LoginResponseFromJson(json);
   Map<String, dynamic> toJson() => _$LoginResponseToJson(this);
 }
 
@@ -59,7 +60,8 @@ class RegisterRequest {
     required this.fullName,
   });
 
-  factory RegisterRequest.fromJson(Map<String, dynamic> json) => _$RegisterRequestFromJson(json);
+  factory RegisterRequest.fromJson(Map<String, dynamic> json) =>
+      _$RegisterRequestFromJson(json);
   Map<String, dynamic> toJson() => _$RegisterRequestToJson(this);
 }
 
@@ -74,6 +76,7 @@ class LoginRequest {
     required this.password,
   });
 
-  factory LoginRequest.fromJson(Map<String, dynamic> json) => _$LoginRequestFromJson(json);
+  factory LoginRequest.fromJson(Map<String, dynamic> json) =>
+      _$LoginRequestFromJson(json);
   Map<String, dynamic> toJson() => _$LoginRequestToJson(this);
 }
