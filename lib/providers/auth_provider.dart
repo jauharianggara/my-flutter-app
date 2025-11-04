@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import '../models/user.dart';
 import '../services/auth_service.dart';
 import '../services/api_service.dart';
@@ -15,8 +16,11 @@ class AuthProvider with ChangeNotifier {
   String? get errorMessage => _errorMessage;
 
   Future<void> checkAuthStatus() async {
-    _isLoading = true;
-    notifyListeners();
+    // Defer notifyListeners to avoid setState during build
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _isLoading = true;
+      notifyListeners();
+    });
 
     try {
       _isLoggedIn = await AuthService.isLoggedIn();
@@ -34,8 +38,11 @@ class AuthProvider with ChangeNotifier {
       _errorMessage = e.toString();
     }
 
-    _isLoading = false;
-    notifyListeners();
+    // Defer final notification as well
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _isLoading = false;
+      notifyListeners();
+    });
   }
 
   Future<bool> login(String usernameOrEmail, String password) async {

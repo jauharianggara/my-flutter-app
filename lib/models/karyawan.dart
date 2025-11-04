@@ -47,29 +47,57 @@ class Karyawan {
 }
 
 @JsonSerializable()
-class KaryawanWithKantor extends Karyawan {
-  final Kantor? kantor;
-  final Jabatan jabatan;
+class KaryawanWithKantor {
+  final int id;
+  final String nama;
+  final double? gaji;
+  @JsonKey(name: 'kantor_id')
+  final int? kantorId;
+  @JsonKey(name: 'kantor_nama')
+  final String? kantorNama;
+  @JsonKey(name: 'jabatan_id')
+  final int? jabatanId;
+  @JsonKey(name: 'jabatan_nama')
+  final String? jabatanNama;
+  @JsonKey(name: 'foto_path')
+  final String? fotoPath;
+  @JsonKey(name: 'foto_original_name')
+  final String? fotoOriginalName;
+  @JsonKey(name: 'foto_size')
+  final int? fotoSize;
+  @JsonKey(name: 'foto_mime_type')
+  final String? fotoMimeType;
+  @JsonKey(name: 'user_id')
+  final int? userId;
+  @JsonKey(name: 'created_by')
+  final int? createdBy;
+  @JsonKey(name: 'updated_by')
+  final int? updatedBy;
+  @JsonKey(name: 'created_at')
+  final String createdAt;
+  @JsonKey(name: 'updated_at')
+  final String updatedAt;
 
   KaryawanWithKantor({
-    required super.id,
-    required super.nama,
-    required super.email,
-    super.telefon,
-    super.kantorId,
-    required super.jabatanId,
-    super.userId,
-    super.fotoUrl,
-    super.createdBy,
-    super.updatedBy,
-    required super.createdAt,
-    required super.updatedAt,
-    this.kantor,
-    required this.jabatan,
+    required this.id,
+    required this.nama,
+    this.gaji,
+    this.kantorId,
+    this.kantorNama,
+    this.jabatanId,
+    this.jabatanNama,
+    this.fotoPath,
+    this.fotoOriginalName,
+    this.fotoSize,
+    this.fotoMimeType,
+    this.userId,
+    this.createdBy,
+    this.updatedBy,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
   factory KaryawanWithKantor.fromJson(Map<String, dynamic> json) => _$KaryawanWithKantorFromJson(json);
-  @override
   Map<String, dynamic> toJson() => _$KaryawanWithKantorToJson(this);
 }
 

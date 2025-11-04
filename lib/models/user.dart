@@ -12,7 +12,7 @@ class User {
   @JsonKey(name: 'created_at')
   final String createdAt;
   @JsonKey(name: 'updated_at')
-  final String updatedAt;
+  final String? updatedAt; // Make optional since backend might not send it
 
   User({
     required this.id,
@@ -20,7 +20,7 @@ class User {
     required this.email,
     required this.fullName,
     required this.createdAt,
-    required this.updatedAt,
+    this.updatedAt, // Optional parameter
   });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

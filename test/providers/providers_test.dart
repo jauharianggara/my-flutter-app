@@ -4,6 +4,9 @@ import 'package:my_flutter_app/providers/karyawan_provider.dart';
 import 'package:my_flutter_app/models/karyawan.dart';
 
 void main() {
+  // Initialize test binding for all tests
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   group('Provider State Management Tests', () {
     // AuthProvider Tests
     group('AuthProvider Tests with testuser:password123', () {

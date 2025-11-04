@@ -3,6 +3,9 @@ import 'package:my_flutter_app/services/auth_service.dart';
 import 'package:my_flutter_app/models/user.dart';
 
 void main() {
+  // Initialize test binding for all tests
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   group('AuthService Tests with testuser:password123', () {
     test('LoginRequest should be properly formed with test credentials',
         () async {

@@ -150,10 +150,10 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
               CircleAvatar(
                 radius: 30,
                 backgroundColor: Colors.blue[100],
-                backgroundImage: karyawan.fotoUrl != null
-                    ? NetworkImage(karyawan.fotoUrl!)
+                backgroundImage: karyawan.fotoPath != null
+                    ? NetworkImage('http://localhost:8080/${karyawan.fotoPath}')
                     : null,
-                child: karyawan.fotoUrl == null
+                child: karyawan.fotoPath == null
                     ? Text(
                         karyawan.nama.isNotEmpty
                             ? karyawan.nama[0].toUpperCase()
@@ -182,31 +182,34 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      karyawan.jabatan.namaJabatan,
+                      karyawan.jabatanNama ?? 'Tidak ada jabatan',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.blue[600],
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    if (karyawan.kantor != null) ...[
+                    if (karyawan.kantorNama != null) ...[
                       const SizedBox(height: 2),
                       Text(
-                        karyawan.kantor!.nama,
+                        karyawan.kantorNama!,
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.grey[600],
                         ),
                       ),
                     ],
-                    const SizedBox(height: 2),
-                    Text(
-                      karyawan.email,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[600],
+                    if (karyawan.gaji != null) ...[
+                      const SizedBox(height: 2),
+                      Text(
+                        'Gaji: Rp ${karyawan.gaji?.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.green[600],
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                    ),
+                    ],
                   ],
                 ),
               ),
@@ -295,10 +298,10 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
                   CircleAvatar(
                     radius: 40,
                     backgroundColor: Colors.blue[100],
-                    backgroundImage: karyawan.fotoUrl != null
-                        ? NetworkImage(karyawan.fotoUrl!)
+                    backgroundImage: karyawan.fotoPath != null
+                        ? NetworkImage('http://localhost:8080/${karyawan.fotoPath}')
                         : null,
-                    child: karyawan.fotoUrl == null
+                    child: karyawan.fotoPath == null
                         ? Text(
                             karyawan.nama.isNotEmpty
                                 ? karyawan.nama[0].toUpperCase()
@@ -324,7 +327,7 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
                           ),
                         ),
                         Text(
-                          karyawan.jabatan.namaJabatan,
+                          karyawan.jabatanNama ?? 'Tidak ada jabatan',
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.blue[600],
@@ -339,14 +342,14 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
               const SizedBox(height: 24),
               
               // Details
-              _buildDetailItem('Email', karyawan.email),
-              if (karyawan.telefon != null)
-                _buildDetailItem('Telepon', karyawan.telefon!),
-              if (karyawan.kantor != null) ...[
-                _buildDetailItem('Kantor', karyawan.kantor!.nama),
-                if (karyawan.kantor!.alamat.isNotEmpty)
-                  _buildDetailItem('Alamat Kantor', karyawan.kantor!.alamat),
-              ],
+              if (karyawan.gaji != null)
+                _buildDetailItem('Gaji', 'Rp ${karyawan.gaji?.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}'),
+              if (karyawan.kantorNama != null)
+                _buildDetailItem('Kantor', karyawan.kantorNama!),
+              if (karyawan.jabatanNama != null)
+                _buildDetailItem('Jabatan', karyawan.jabatanNama!),
+              if (karyawan.fotoOriginalName != null)
+                _buildDetailItem('Nama File Foto', karyawan.fotoOriginalName!),
               
               const SizedBox(height: 16),
               

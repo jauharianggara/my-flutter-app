@@ -12,11 +12,14 @@ void main() {
   // Setup bindings for testing
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  group('🎭 Playwright-style Integration Tests for Employee Management App', () {
-    
-    testWidgets('🔐 Complete Login Flow with testuser:password123 (Like Playwright)', (tester) async {
-      print('🎭 Starting login flow test - similar to playwright.test("login flow")');
-      
+  group('🎭 Playwright-style Integration Tests for Employee Management App',
+      () {
+    testWidgets(
+        '🔐 Complete Login Flow with testuser:password123 (Like Playwright)',
+        (tester) async {
+      print(
+          '🎭 Starting login flow test - similar to playwright.test("login flow")');
+
       // 🎭 Similar to: await page.goto('/')
       await tester.pumpWidget(
         MultiProvider(
@@ -29,7 +32,8 @@ void main() {
       );
 
       // 🎭 Similar to: await page.waitForLoadState()
-      await tester.pumpAndSettle(const Duration(seconds: 2));
+      await tester.pump(const Duration(milliseconds: 500));
+      await tester.pump(); // Additional pump to complete any pending animations
       print('✅ App loaded successfully');
 
       // 🎭 Similar to: await page.locator('#username').isVisible()
@@ -57,12 +61,14 @@ void main() {
 
       // 🎭 Similar to: await expect(page).toHaveURL('/dashboard')
       // Note: This will fail in test without actual backend, but structure is correct
-      print('✅ Login flow test completed (would verify success with real backend)');
+      print(
+          '✅ Login flow test completed (would verify success with real backend)');
     });
 
-    testWidgets('👥 Employee List Navigation (Like Playwright Page Navigation)', (tester) async {
+    testWidgets('👥 Employee List Navigation (Like Playwright Page Navigation)',
+        (tester) async {
       print('🎭 Testing navigation flow - similar to playwright page.goto()');
-      
+
       await tester.pumpWidget(
         MultiProvider(
           providers: [
@@ -77,7 +83,7 @@ void main() {
 
       // 🎭 Similar to: await page.click('nav[aria-label="employees"]')
       print('✅ Looking for navigation elements...');
-      
+
       // Check if we can find common navigation elements
       final scaffoldFinder = find.byType(Scaffold);
       expect(scaffoldFinder, findsAtLeast(1));
@@ -87,9 +93,11 @@ void main() {
       print('✅ Navigation test completed');
     });
 
-    testWidgets('📱 Responsive Design Test (Like Playwright Viewport Testing)', (tester) async {
-      print('🎭 Testing responsive design - similar to playwright.setViewportSize()');
-      
+    testWidgets('📱 Responsive Design Test (Like Playwright Viewport Testing)',
+        (tester) async {
+      print(
+          '🎭 Testing responsive design - similar to playwright.setViewportSize()');
+
       // 🎭 Mobile viewport test
       await tester.binding.setSurfaceSize(const Size(375, 667));
       await tester.pumpWidget(
@@ -117,11 +125,13 @@ void main() {
       print('✅ Desktop viewport (1920x1080) tested');
     });
 
-    testWidgets('⚡ Performance Test (Like Playwright Performance Metrics)', (tester) async {
-      print('🎭 Testing performance - similar to playwright performance timing');
-      
+    testWidgets('⚡ Performance Test (Like Playwright Performance Metrics)',
+        (tester) async {
+      print(
+          '🎭 Testing performance - similar to playwright performance timing');
+
       final stopwatch = Stopwatch()..start();
-      
+
       await tester.pumpWidget(
         MultiProvider(
           providers: [
@@ -141,9 +151,10 @@ void main() {
       print('✅ App loaded in ${loadTime}ms (under 5000ms limit)');
     });
 
-    testWidgets('🔍 Form Validation Test (Like Playwright Form Testing)', (tester) async {
+    testWidgets('🔍 Form Validation Test (Like Playwright Form Testing)',
+        (tester) async {
       print('🎭 Testing form validation - similar to playwright form testing');
-      
+
       await tester.pumpWidget(
         MultiProvider(
           providers: [
@@ -168,9 +179,11 @@ void main() {
       print('✅ Form validation test completed');
     });
 
-    testWidgets('🧪 Error Handling Test (Like Playwright Error Scenarios)', (tester) async {
-      print('🎭 Testing error scenarios - similar to playwright error handling');
-      
+    testWidgets('🧪 Error Handling Test (Like Playwright Error Scenarios)',
+        (tester) async {
+      print(
+          '🎭 Testing error scenarios - similar to playwright error handling');
+
       await tester.pumpWidget(
         MultiProvider(
           providers: [
@@ -202,9 +215,11 @@ void main() {
       print('✅ Error handling test completed');
     });
 
-    testWidgets('🔄 State Management Test (Like Playwright State Testing)', (tester) async {
-      print('🎭 Testing state management - similar to playwright state verification');
-      
+    testWidgets('🔄 State Management Test (Like Playwright State Testing)',
+        (tester) async {
+      print(
+          '🎭 Testing state management - similar to playwright state verification');
+
       await tester.pumpWidget(
         MultiProvider(
           providers: [
@@ -220,7 +235,8 @@ void main() {
       // 🎭 Similar to: await page.evaluate(() => window.appState)
       // Verify providers are properly initialized by checking the widgets
       expect(find.byType(ChangeNotifierProvider<AuthProvider>), findsOneWidget);
-      expect(find.byType(ChangeNotifierProvider<KaryawanProvider>), findsOneWidget);
+      expect(find.byType(ChangeNotifierProvider<KaryawanProvider>),
+          findsOneWidget);
       print('✅ Providers properly initialized');
 
       // Verify app structure
@@ -233,7 +249,7 @@ void main() {
       print('\n🎭 PLAYWRIGHT-STYLE TESTING SUMMARY');
       print('=====================================');
       print('✅ Login Flow Test: COMPLETED');
-      print('✅ Navigation Test: COMPLETED'); 
+      print('✅ Navigation Test: COMPLETED');
       print('✅ Responsive Design Test: COMPLETED');
       print('✅ Performance Test: COMPLETED');
       print('✅ Form Validation Test: COMPLETED');

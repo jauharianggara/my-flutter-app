@@ -20,9 +20,11 @@ class KaryawanService {
     }
   }
 
-  static Future<ApiResponse<List<KaryawanWithKantor>>> getAllKaryawansWithKantor() async {
+  static Future<ApiResponse<List<KaryawanWithKantor>>>
+      getAllKaryawansWithKantor() async {
     try {
-      final response = await ApiService.get(ApiService.karyawansWithKantorEndpoint);
+      final response =
+          await ApiService.get(ApiService.karyawansWithKantorEndpoint);
       return ApiService.handleListResponse<KaryawanWithKantor>(
         response,
         (json) => KaryawanWithKantor.fromJson(json),
@@ -38,7 +40,8 @@ class KaryawanService {
 
   static Future<ApiResponse<Karyawan>> getKaryawanById(int id) async {
     try {
-      final response = await ApiService.get('${ApiService.karyawansEndpoint}/$id');
+      final response =
+          await ApiService.get('${ApiService.karyawansEndpoint}/$id');
       return ApiService.handleResponse<Karyawan>(
         response,
         (json) => Karyawan.fromJson(json),
@@ -52,9 +55,11 @@ class KaryawanService {
     }
   }
 
-  static Future<ApiResponse<KaryawanWithKantor>> getKaryawanWithKantorById(int id) async {
+  static Future<ApiResponse<KaryawanWithKantor>> getKaryawanWithKantorById(
+      int id) async {
     try {
-      final response = await ApiService.get('${ApiService.karyawansEndpoint}/$id/with-kantor');
+      final response = await ApiService.get(
+          '${ApiService.karyawansEndpoint}/$id/with-kantor');
       return ApiService.handleResponse<KaryawanWithKantor>(
         response,
         (json) => KaryawanWithKantor.fromJson(json),
@@ -68,7 +73,8 @@ class KaryawanService {
     }
   }
 
-  static Future<ApiResponse<Karyawan>> createKaryawan(CreateKaryawanRequest request) async {
+  static Future<ApiResponse<Karyawan>> createKaryawan(
+      CreateKaryawanRequest request) async {
     try {
       final response = await ApiService.post(
         ApiService.karyawansEndpoint,
@@ -92,7 +98,8 @@ class KaryawanService {
     File photo,
   ) async {
     try {
-      final fields = request.toJson().map((key, value) => MapEntry(key, value.toString()));
+      final fields =
+          request.toJson().map((key, value) => MapEntry(key, value.toString()));
       final files = {'foto': photo};
 
       final streamedResponse = await ApiService.postMultipart(
@@ -102,7 +109,7 @@ class KaryawanService {
       );
 
       final responseBody = await streamedResponse.stream.bytesToString();
-      
+
       // Convert StreamedResponse to Response for handling
       final httpResponseObj = Response(
         responseBody,
@@ -123,7 +130,8 @@ class KaryawanService {
     }
   }
 
-  static Future<ApiResponse<Karyawan>> updateKaryawan(int id, UpdateKaryawanRequest request) async {
+  static Future<ApiResponse<Karyawan>> updateKaryawan(
+      int id, UpdateKaryawanRequest request) async {
     try {
       final response = await ApiService.put(
         '${ApiService.karyawansEndpoint}/$id',
@@ -144,8 +152,9 @@ class KaryawanService {
 
   static Future<ApiResponse<void>> deleteKaryawan(int id) async {
     try {
-      final response = await ApiService.delete('${ApiService.karyawansEndpoint}/$id');
-      
+      final response =
+          await ApiService.delete('${ApiService.karyawansEndpoint}/$id');
+
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return ApiResponse<void>(
           success: true,
@@ -167,7 +176,8 @@ class KaryawanService {
     }
   }
 
-  static Future<ApiResponse<void>> uploadKaryawanPhoto(int id, File photo) async {
+  static Future<ApiResponse<void>> uploadKaryawanPhoto(
+      int id, File photo) async {
     try {
       final files = {'foto': photo};
 
@@ -177,7 +187,8 @@ class KaryawanService {
         files,
       );
 
-      if (streamedResponse.statusCode >= 200 && streamedResponse.statusCode < 300) {
+      if (streamedResponse.statusCode >= 200 &&
+          streamedResponse.statusCode < 300) {
         return ApiResponse<void>(
           success: true,
           message: 'Photo uploaded successfully',
@@ -200,8 +211,9 @@ class KaryawanService {
 
   static Future<ApiResponse<void>> deleteKaryawanPhoto(int id) async {
     try {
-      final response = await ApiService.delete('${ApiService.karyawansEndpoint}/$id/photo');
-      
+      final response =
+          await ApiService.delete('${ApiService.karyawansEndpoint}/$id/photo');
+
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return ApiResponse<void>(
           success: true,
