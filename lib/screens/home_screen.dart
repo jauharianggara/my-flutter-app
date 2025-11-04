@@ -326,7 +326,8 @@ class ProfileTab extends StatelessWidget {
                         context: context,
                         builder: (context) => AlertDialog(
                           title: const Text('Logout'),
-                          content: const Text('Apakah Anda yakin ingin logout?'),
+                          content:
+                              const Text('Apakah Anda yakin ingin logout?'),
                           actions: [
                             TextButton(
                               onPressed: () => Navigator.of(context).pop(false),

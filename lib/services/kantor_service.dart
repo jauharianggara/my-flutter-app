@@ -21,7 +21,8 @@ class KantorService {
 
   static Future<ApiResponse<Kantor>> getKantorById(int id) async {
     try {
-      final response = await ApiService.get('${ApiService.kantorsEndpoint}/$id');
+      final response =
+          await ApiService.get('${ApiService.kantorsEndpoint}/$id');
       return ApiService.handleResponse<Kantor>(
         response,
         (json) => Kantor.fromJson(json),
@@ -35,7 +36,8 @@ class KantorService {
     }
   }
 
-  static Future<ApiResponse<Kantor>> createKantor(CreateKantorRequest request) async {
+  static Future<ApiResponse<Kantor>> createKantor(
+      CreateKantorRequest request) async {
     try {
       final response = await ApiService.post(
         ApiService.kantorsEndpoint,
@@ -54,7 +56,8 @@ class KantorService {
     }
   }
 
-  static Future<ApiResponse<Kantor>> updateKantor(int id, UpdateKantorRequest request) async {
+  static Future<ApiResponse<Kantor>> updateKantor(
+      int id, UpdateKantorRequest request) async {
     try {
       final response = await ApiService.put(
         '${ApiService.kantorsEndpoint}/$id',
@@ -75,8 +78,9 @@ class KantorService {
 
   static Future<ApiResponse<void>> deleteKantor(int id) async {
     try {
-      final response = await ApiService.delete('${ApiService.kantorsEndpoint}/$id');
-      
+      final response =
+          await ApiService.delete('${ApiService.kantorsEndpoint}/$id');
+
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return ApiResponse<void>(
           success: true,

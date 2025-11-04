@@ -32,7 +32,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Future<void> _handleRegister() async {
     if (_formKey.currentState!.validate()) {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
-      
+
       final success = await authProvider.register(
         username: _usernameController.text.trim(),
         email: _emailController.text.trim(),
@@ -69,7 +69,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Column(
                 children: [
                   const SizedBox(height: 20),
-                  
+
                   // Icon
                   const Icon(
                     Icons.person_add,
@@ -77,7 +77,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     color: Colors.blue,
                   ),
                   const SizedBox(height: 16),
-                  
+
                   const Text(
                     'Buat Akun Baru',
                     style: TextStyle(
@@ -164,7 +164,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 if (value == null || value.isEmpty) {
                                   return 'Email harus diisi';
                                 }
-                                if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                                if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                    .hasMatch(value)) {
                                   return 'Format email tidak valid';
                                 }
                                 return null;
@@ -181,7 +182,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 prefixIcon: const Icon(Icons.lock),
                                 suffixIcon: IconButton(
                                   icon: Icon(
-                                    _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                                    _obscurePassword
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
                                   ),
                                   onPressed: () {
                                     setState(() {
@@ -214,11 +217,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 prefixIcon: const Icon(Icons.lock_outline),
                                 suffixIcon: IconButton(
                                   icon: Icon(
-                                    _obscureConfirmPassword ? Icons.visibility : Icons.visibility_off,
+                                    _obscureConfirmPassword
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
                                   ),
                                   onPressed: () {
                                     setState(() {
-                                      _obscureConfirmPassword = !_obscureConfirmPassword;
+                                      _obscureConfirmPassword =
+                                          !_obscureConfirmPassword;
                                     });
                                   },
                                 ),
@@ -255,7 +261,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     Expanded(
                                       child: Text(
                                         authProvider.errorMessage!,
-                                        style: TextStyle(color: Colors.red[600]),
+                                        style:
+                                            TextStyle(color: Colors.red[600]),
                                       ),
                                     ),
                                   ],
@@ -267,7 +274,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               width: double.infinity,
                               height: 50,
                               child: ElevatedButton(
-                                onPressed: authProvider.isLoading ? null : _handleRegister,
+                                onPressed: authProvider.isLoading
+                                    ? null
+                                    : _handleRegister,
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.blue,
                                   foregroundColor: Colors.white,
@@ -276,7 +285,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ),
                                 child: authProvider.isLoading
-                                    ? const CircularProgressIndicator(color: Colors.white)
+                                    ? const CircularProgressIndicator(
+                                        color: Colors.white)
                                     : const Text(
                                         'Daftar',
                                         style: TextStyle(

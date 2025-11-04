@@ -25,7 +25,8 @@ class Jabatan {
     required this.updatedAt,
   });
 
-  factory Jabatan.fromJson(Map<String, dynamic> json) => _$JabatanFromJson(json);
+  factory Jabatan.fromJson(Map<String, dynamic> json) =>
+      _$JabatanFromJson(json);
   Map<String, dynamic> toJson() => _$JabatanToJson(this);
 }
 
@@ -38,7 +39,8 @@ class CreateJabatanRequest {
     required this.namaJabatan,
   });
 
-  factory CreateJabatanRequest.fromJson(Map<String, dynamic> json) => _$CreateJabatanRequestFromJson(json);
+  factory CreateJabatanRequest.fromJson(Map<String, dynamic> json) =>
+      _$CreateJabatanRequestFromJson(json);
   Map<String, dynamic> toJson() => _$CreateJabatanRequestToJson(this);
 }
 
@@ -51,6 +53,7 @@ class UpdateJabatanRequest {
     required this.namaJabatan,
   });
 
-  factory UpdateJabatanRequest.fromJson(Map<String, dynamic> json) => _$UpdateJabatanRequestFromJson(json);
+  factory UpdateJabatanRequest.fromJson(Map<String, dynamic> json) =>
+      _$UpdateJabatanRequestFromJson(json);
   Map<String, dynamic> toJson() => _$UpdateJabatanRequestToJson(this);
 }

@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> _handleLogin() async {
     if (_formKey.currentState!.validate()) {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
-      
+
       final success = await authProvider.login(
         _usernameController.text.trim(),
         _passwordController.text,
@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     color: Colors.blue,
                   ),
                   const SizedBox(height: 24),
-                  
+
                   // Title
                   const Text(
                     'Login',
@@ -121,7 +121,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 prefixIcon: const Icon(Icons.lock),
                                 suffixIcon: IconButton(
                                   icon: Icon(
-                                    _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                                    _obscurePassword
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
                                   ),
                                   onPressed: () {
                                     setState(() {
@@ -159,7 +161,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     Expanded(
                                       child: Text(
                                         authProvider.errorMessage!,
-                                        style: TextStyle(color: Colors.red[600]),
+                                        style:
+                                            TextStyle(color: Colors.red[600]),
                                       ),
                                     ),
                                   ],
@@ -171,7 +174,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               width: double.infinity,
                               height: 50,
                               child: ElevatedButton(
-                                onPressed: authProvider.isLoading ? null : _handleLogin,
+                                onPressed: authProvider.isLoading
+                                    ? null
+                                    : _handleLogin,
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.blue,
                                   foregroundColor: Colors.white,
@@ -180,7 +185,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                                 child: authProvider.isLoading
-                                    ? const CircularProgressIndicator(color: Colors.white)
+                                    ? const CircularProgressIndicator(
+                                        color: Colors.white)
                                     : const Text(
                                         'Login',
                                         style: TextStyle(

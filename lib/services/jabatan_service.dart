@@ -21,7 +21,8 @@ class JabatanService {
 
   static Future<ApiResponse<Jabatan>> getJabatanById(int id) async {
     try {
-      final response = await ApiService.get('${ApiService.jabatansEndpoint}/$id');
+      final response =
+          await ApiService.get('${ApiService.jabatansEndpoint}/$id');
       return ApiService.handleResponse<Jabatan>(
         response,
         (json) => Jabatan.fromJson(json),
@@ -35,7 +36,8 @@ class JabatanService {
     }
   }
 
-  static Future<ApiResponse<Jabatan>> createJabatan(CreateJabatanRequest request) async {
+  static Future<ApiResponse<Jabatan>> createJabatan(
+      CreateJabatanRequest request) async {
     try {
       final response = await ApiService.post(
         ApiService.jabatansEndpoint,
@@ -54,7 +56,8 @@ class JabatanService {
     }
   }
 
-  static Future<ApiResponse<Jabatan>> updateJabatan(int id, UpdateJabatanRequest request) async {
+  static Future<ApiResponse<Jabatan>> updateJabatan(
+      int id, UpdateJabatanRequest request) async {
     try {
       final response = await ApiService.put(
         '${ApiService.jabatansEndpoint}/$id',
@@ -75,8 +78,9 @@ class JabatanService {
 
   static Future<ApiResponse<void>> deleteJabatan(int id) async {
     try {
-      final response = await ApiService.delete('${ApiService.jabatansEndpoint}/$id');
-      
+      final response =
+          await ApiService.delete('${ApiService.jabatansEndpoint}/$id');
+
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return ApiResponse<void>(
           success: true,

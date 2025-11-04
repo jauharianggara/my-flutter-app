@@ -52,7 +52,8 @@ class CreateKantorRequest {
     this.longitude,
   });
 
-  factory CreateKantorRequest.fromJson(Map<String, dynamic> json) => _$CreateKantorRequestFromJson(json);
+  factory CreateKantorRequest.fromJson(Map<String, dynamic> json) =>
+      _$CreateKantorRequestFromJson(json);
   Map<String, dynamic> toJson() => _$CreateKantorRequestToJson(this);
 }
 
@@ -72,6 +73,7 @@ class UpdateKantorRequest {
     this.longitude,
   });
 
-  factory UpdateKantorRequest.fromJson(Map<String, dynamic> json) => _$UpdateKantorRequestFromJson(json);
+  factory UpdateKantorRequest.fromJson(Map<String, dynamic> json) =>
+      _$UpdateKantorRequestFromJson(json);
   Map<String, dynamic> toJson() => _$UpdateKantorRequestToJson(this);
 }
