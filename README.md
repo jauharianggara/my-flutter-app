@@ -1,5 +1,10 @@
 # Employee Management Flutter App
 
+[![CI/CD Pipeline](https://github.com/jauharianggara/my-flutter-app/actions/workflows/ci.yml/badge.svg)](https://github.com/jauharianggara/my-flutter-app/actions/workflows/ci.yml)
+[![Code Quality](https://github.com/jauharianggara/my-flutter-app/actions/workflows/quality.yml/badge.svg)](https://github.com/jauharianggara/my-flutter-app/actions/workflows/quality.yml)
+[![Deploy to GitHub Pages](https://github.com/jauharianggara/my-flutter-app/actions/workflows/deploy.yml/badge.svg)](https://github.com/jauharianggara/my-flutter-app/actions/workflows/deploy.yml)
+[![codecov](https://codecov.io/gh/jauharianggara/my-flutter-app/branch/main/graph/badge.svg)](https://codecov.io/gh/jauharianggara/my-flutter-app)
+
 Aplikasi mobile Flutter untuk sistem manajemen karyawan dan kantor dengan fitur
 autentikasi JWT yang terintegrasi dengan API backend.
 

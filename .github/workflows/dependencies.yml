@@ -1,0 +1,68 @@
+name: Dependency Updates
+
+on:
+  schedule:
+    # Run every Monday at 9 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update-dependencies:
+    name: Update Dependencies
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.24.3'
+        channel: 'stable'
+        
+    - name: Check for dependency updates
+      run: |
+        flutter pub outdated --json > outdated.json
+        cat outdated.json
+        
+    - name: Update dependencies
+      run: |
+        flutter pub upgrade --major-versions
+        flutter pub get
+        
+    - name: Generate model files
+      run: flutter packages pub run build_runner build --delete-conflicting-outputs
+      
+    - name: Run tests
+      run: flutter test
+      
+    - name: Check if there are changes
+      id: verify-changed-files
+      run: |
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "changed=true" >> $GITHUB_OUTPUT
+        else
+          echo "changed=false" >> $GITHUB_OUTPUT
+        fi
+        
+    - name: Create Pull Request
+      if: steps.verify-changed-files.outputs.changed == 'true'
+      uses: peter-evans/create-pull-request@v6
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: 'chore: update dependencies'
+        title: 'chore: update dependencies'
+        body: |
+          This PR updates the project dependencies to their latest versions.
+          
+          ## Changes
+          - Updated Flutter dependencies
+          - Regenerated model files
+          - All tests are passing
+          
+          Please review the changes before merging.
+        branch: dependency-updates
+        delete-branch: true
