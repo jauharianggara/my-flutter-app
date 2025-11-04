@@ -1,6 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'kantor.dart';
-import 'jabatan.dart';
 
 part 'karyawan.g.dart';
 

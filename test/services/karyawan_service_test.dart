@@ -84,33 +84,20 @@ void main() {
       final karyawanWithKantorJson = {
         'id': 1,
         'nama': 'Test Employee',
-        'email': 'test@company.com',
-        'telefon': '+62123456789',
+        'gaji': 15000000.0,
         'kantor_id': 1,
+        'kantor_nama': 'Jakarta Office',
         'jabatan_id': 2,
+        'jabatan_nama': 'Software Developer',
+        'foto_path': 'uploads/karyawan/photos/employee_1.jpg',
+        'foto_original_name': 'profile.jpg',
+        'foto_size': 1024,
+        'foto_mime_type': 'image/jpeg',
         'user_id': null,
-        'foto_url': null,
         'created_by': 1,
         'updated_by': 1,
         'created_at': '2024-01-01T00:00:00Z',
         'updated_at': '2024-01-01T00:00:00Z',
-        'kantor': {
-          'id': 1,
-          'nama': 'Jakarta Office',
-          'alamat': 'Jakarta, Indonesia',
-          'telefon': '+62211234567',
-          'email': 'jakarta@company.com',
-          'created_at': '2024-01-01T00:00:00Z',
-          'updated_at': '2024-01-01T00:00:00Z',
-        },
-        'jabatan': {
-          'id': 2,
-          'nama_jabatan': 'Software Developer',
-          'created_by': 1,
-          'updated_by': 1,
-          'created_at': '2024-01-01T00:00:00Z',
-          'updated_at': '2024-01-01T00:00:00Z',
-        },
       };
 
       final karyawanWithKantor =
@@ -118,10 +105,8 @@ void main() {
 
       expect(karyawanWithKantor.id, 1);
       expect(karyawanWithKantor.nama, 'Test Employee');
-      expect(karyawanWithKantor.email, 'test@company.com');
-      expect(karyawanWithKantor.kantor?.nama, 'Jakarta Office');
-      expect(karyawanWithKantor.kantor?.alamat, 'Jakarta, Indonesia');
-      expect(karyawanWithKantor.jabatan.namaJabatan, 'Software Developer');
+      expect(karyawanWithKantor.kantorNama, 'Jakarta Office');
+      expect(karyawanWithKantor.jabatanNama, 'Software Developer');
     });
 
     test('JSON serialization round-trip for Karyawan', () async {
