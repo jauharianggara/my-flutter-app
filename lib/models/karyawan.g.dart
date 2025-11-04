@@ -90,8 +90,9 @@ CreateKaryawanRequest _$CreateKaryawanRequestFromJson(
       nama: json['nama'] as String,
       email: json['email'] as String,
       telefon: json['telefon'] as String?,
-      kantorId: (json['kantor_id'] as num?)?.toInt(),
-      jabatanId: (json['jabatan_id'] as num).toInt(),
+      gaji: json['gaji'] as String?,
+      kantorId: json['kantor_id'] as String,
+      jabatanId: json['jabatan_id'] as String,
     );
 
 Map<String, dynamic> _$CreateKaryawanRequestToJson(
@@ -100,6 +101,7 @@ Map<String, dynamic> _$CreateKaryawanRequestToJson(
       'nama': instance.nama,
       'email': instance.email,
       'telefon': instance.telefon,
+      'gaji': instance.gaji,
       'kantor_id': instance.kantorId,
       'jabatan_id': instance.jabatanId,
     };

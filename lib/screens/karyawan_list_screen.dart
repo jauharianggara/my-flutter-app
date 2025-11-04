@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../providers/karyawan_provider.dart';
 import '../models/karyawan.dart';
 import 'edit_karyawan_screen.dart';
+import 'create_karyawan_screen.dart';
 
 class KaryawanListScreen extends StatefulWidget {
   const KaryawanListScreen({super.key});
@@ -122,15 +123,21 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // TODO: Navigate to add karyawan screen
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Fitur tambah karyawan akan segera tersedia'),
+        onPressed: () async {
+          final result = await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const CreateKaryawanScreen(),
             ),
           );
+
+          // Refresh list if karyawan was created successfully
+          if (result == true && mounted) {
+            Provider.of<KaryawanProvider>(context, listen: false)
+                .loadKaryawans();
+          }
         },
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.green,
         child: const Icon(Icons.add, color: Colors.white),
       ),
     );

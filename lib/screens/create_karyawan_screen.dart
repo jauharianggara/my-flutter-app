@@ -5,24 +5,19 @@ import '../providers/karyawan_provider.dart';
 import '../services/dropdown_service.dart';
 import '../services/karyawan_service.dart';
 
-class EditKaryawanScreen extends StatefulWidget {
-  final KaryawanWithKantor karyawan;
-
-  const EditKaryawanScreen({
-    super.key,
-    required this.karyawan,
-  });
+class CreateKaryawanScreen extends StatefulWidget {
+  const CreateKaryawanScreen({super.key});
 
   @override
-  State<EditKaryawanScreen> createState() => _EditKaryawanScreenState();
+  State<CreateKaryawanScreen> createState() => _CreateKaryawanScreenState();
 }
 
-class _EditKaryawanScreenState extends State<EditKaryawanScreen> {
+class _CreateKaryawanScreenState extends State<CreateKaryawanScreen> {
   final _formKey = GlobalKey<FormState>();
   final _namaController = TextEditingController();
   final _emailController = TextEditingController();
   final _telefonController = TextEditingController();
-  final _gajiController = TextEditingController(); // Add gaji controller
+  final _gajiController = TextEditingController();
 
   List<Kantor> _kantors = [];
   List<Jabatan> _jabatans = [];
@@ -30,34 +25,16 @@ class _EditKaryawanScreenState extends State<EditKaryawanScreen> {
   int? _selectedJabatanId;
   bool _isLoading = true;
   bool _isSaving = false;
-  Karyawan? _karyawanDetail;
 
   @override
   void initState() {
     super.initState();
-    _initializeData();
+    _loadDropdownData();
   }
 
-  void _initializeData() {
-    // Set initial data dari KaryawanWithKantor
-    _namaController.text = widget.karyawan.nama;
-    _selectedKantorId = widget.karyawan.kantorId;
-    _selectedJabatanId = widget.karyawan.jabatanId;
-
-    _loadData();
-  }
-
-  Future<void> _loadData() async {
+  Future<void> _loadDropdownData() async {
     try {
-      print('DEBUG: Starting _loadData for karyawan ID: ${widget.karyawan.id}');
-
-      // Load karyawan detail untuk mendapatkan email dan telepon
-      final karyawanResponse =
-          await KaryawanService.getKaryawanById(widget.karyawan.id);
-      print('DEBUG: Karyawan response success: ${karyawanResponse.success}');
-      if (!karyawanResponse.success) {
-        print('DEBUG: Karyawan error: ${karyawanResponse.message}');
-      }
+      print('DEBUG: Loading dropdown data for create form');
 
       // Load dropdown data
       final kantorResponse = await KantorService.getAllKantors();
@@ -72,29 +49,13 @@ class _EditKaryawanScreenState extends State<EditKaryawanScreen> {
         print('DEBUG: Jabatan error: ${jabatanResponse.message}');
       }
 
-      if (karyawanResponse.success &&
-          kantorResponse.success &&
-          jabatanResponse.success) {
+      if (kantorResponse.success && jabatanResponse.success) {
         print('DEBUG: All API calls successful, setting state');
         setState(() {
-          _karyawanDetail = karyawanResponse.data;
           _kantors = kantorResponse.data ?? [];
           _jabatans = jabatanResponse.data ?? [];
-
           print(
               'DEBUG: Loaded ${_kantors.length} kantors and ${_jabatans.length} jabatans');
-
-          // Set email dan telepon dari detail data
-          if (_karyawanDetail != null) {
-            _emailController.text = _karyawanDetail!.email ?? '';
-            _telefonController.text = _karyawanDetail!.telefon ?? '';
-            _gajiController.text =
-                _karyawanDetail!.gaji?.toString() ?? '0'; // Set gaji
-            print('DEBUG: Set email: ${_karyawanDetail!.email ?? ""}');
-            print(
-                'DEBUG: Set gaji: ${_karyawanDetail!.gaji?.toString() ?? "0"}');
-          }
-
           _isLoading = false;
         });
       } else {
@@ -102,9 +63,6 @@ class _EditKaryawanScreenState extends State<EditKaryawanScreen> {
           _isLoading = false;
         });
         String errorDetails = '';
-        if (!karyawanResponse.success) {
-          errorDetails += 'Karyawan: ${karyawanResponse.message}. ';
-        }
         if (!kantorResponse.success) {
           errorDetails += 'Kantor: ${kantorResponse.message}. ';
         }
@@ -119,12 +77,12 @@ class _EditKaryawanScreenState extends State<EditKaryawanScreen> {
       setState(() {
         _isLoading = false;
       });
-      print('DEBUG: Exception in _loadData: $e');
+      print('DEBUG: Exception in _loadDropdownData: $e');
       _showErrorSnackBar('Error: $e');
     }
   }
 
-  Future<void> _updateKaryawan() async {
+  Future<void> _createKaryawan() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -139,40 +97,31 @@ class _EditKaryawanScreenState extends State<EditKaryawanScreen> {
     });
 
     try {
-      final request = UpdateKaryawanRequest(
+      final request = CreateKaryawanRequest(
         nama: _namaController.text.trim(),
-        email: _emailController.text.trim().isEmpty
-            ? null
-            : _emailController.text.trim(),
+        email: _emailController.text.trim(),
         telefon: _telefonController.text.trim().isEmpty
             ? null
             : _telefonController.text.trim(),
         gaji: _gajiController.text.trim().isEmpty
-            ? null
-            : double.tryParse(_gajiController.text.trim())
-                ?.toInt()
-                .toString(), // Convert to int string
-        kantorId: _selectedKantorId!.toString(), // Convert to string
-        jabatanId: _selectedJabatanId!.toString(), // Convert to string
+            ? "0"
+            : _gajiController.text.trim(), // Just use the raw string value
+        kantorId: _selectedKantorId!.toString(), // Convert to String
+        jabatanId: _selectedJabatanId!.toString(), // Convert to String
       );
 
       // Debug logging
-      print('DEBUG: Form data before sending:');
+      print('DEBUG: Create form data before sending:');
       print('DEBUG: Nama: ${_namaController.text.trim()}');
-      print(
-          'DEBUG: Email: ${_emailController.text.trim().isEmpty ? "null" : _emailController.text.trim()}');
+      print('DEBUG: Email: ${_emailController.text.trim()}');
       print(
           'DEBUG: Telefon: ${_telefonController.text.trim().isEmpty ? "null" : _telefonController.text.trim()}');
-      print(
-          'DEBUG: Gaji: ${_gajiController.text.trim().isEmpty ? "null" : _gajiController.text.trim()}');
+      print('DEBUG: Gaji: ${_gajiController.text.trim().isEmpty ? "0" : _gajiController.text.trim()}');
       print('DEBUG: KantorId: $_selectedKantorId');
       print('DEBUG: JabatanId: $_selectedJabatanId');
       print('DEBUG: Request object: $request');
 
-      final response = await KaryawanService.updateKaryawan(
-        widget.karyawan.id,
-        request,
-      );
+      final response = await KaryawanService.createKaryawan(request);
 
       if (response.success) {
         if (mounted) {
@@ -181,7 +130,7 @@ class _EditKaryawanScreenState extends State<EditKaryawanScreen> {
 
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Karyawan berhasil diupdate'),
+              content: Text('Karyawan berhasil ditambahkan'),
               backgroundColor: Colors.green,
             ),
           );
@@ -192,7 +141,7 @@ class _EditKaryawanScreenState extends State<EditKaryawanScreen> {
         _showErrorSnackBar(response.message);
       }
     } catch (e) {
-      print('DEBUG: Exception in _updateKaryawan: $e');
+      print('DEBUG: Exception in _createKaryawan: $e');
       _showErrorSnackBar('Error: $e');
     } finally {
       if (mounted) {
@@ -219,7 +168,7 @@ class _EditKaryawanScreenState extends State<EditKaryawanScreen> {
     _namaController.dispose();
     _emailController.dispose();
     _telefonController.dispose();
-    _gajiController.dispose(); // Add gaji controller dispose
+    _gajiController.dispose();
     super.dispose();
   }
 
@@ -227,8 +176,8 @@ class _EditKaryawanScreenState extends State<EditKaryawanScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Karyawan'),
-        backgroundColor: Colors.blue[600],
+        title: const Text('Tambah Karyawan'),
+        backgroundColor: Colors.green[600],
         foregroundColor: Colors.white,
         actions: [
           if (_isSaving)
@@ -259,27 +208,27 @@ class _EditKaryawanScreenState extends State<EditKaryawanScreen> {
                       width: double.infinity,
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: Colors.blue[50],
+                        color: Colors.green[50],
                         borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: Colors.blue[200]!),
+                        border: Border.all(color: Colors.green[200]!),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Edit Data Karyawan',
+                            'Tambah Karyawan Baru',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Colors.blue[800],
+                              color: Colors.green[800],
                             ),
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            'ID: ${widget.karyawan.id}',
+                            'Isi semua data karyawan dengan lengkap',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Colors.blue[600],
+                              color: Colors.green[600],
                             ),
                           ),
                         ],
@@ -312,18 +261,19 @@ class _EditKaryawanScreenState extends State<EditKaryawanScreen> {
                     TextFormField(
                       controller: _emailController,
                       decoration: const InputDecoration(
-                        labelText: 'Email',
+                        labelText: 'Email *',
                         border: OutlineInputBorder(),
                         prefixIcon: Icon(Icons.email),
                         hintText: 'contoh@email.com',
                       ),
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
-                        if (value != null && value.trim().isNotEmpty) {
-                          if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                              .hasMatch(value.trim())) {
-                            return 'Format email tidak valid';
-                          }
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Email tidak boleh kosong';
+                        }
+                        if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                            .hasMatch(value.trim())) {
+                          return 'Format email tidak valid';
                         }
                         return null;
                       },
@@ -355,31 +305,29 @@ class _EditKaryawanScreenState extends State<EditKaryawanScreen> {
                     TextFormField(
                       controller: _gajiController,
                       decoration: const InputDecoration(
-                        labelText: 'Gaji *',
+                        labelText: 'Gaji',
                         border: OutlineInputBorder(),
-                        prefixIcon: Icon(Icons.attach_money),
-                        hintText: 'Masukkan gaji karyawan',
+                        prefixIcon: Icon(Icons.monetization_on),
+                        hintText: '5000000',
                       ),
                       keyboardType: TextInputType.number,
                       validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Gaji tidak boleh kosong';
-                        }
-                        final gaji = double.tryParse(value.trim());
-                        if (gaji == null || gaji <= 0) {
-                          return 'Gaji harus berupa angka yang valid';
+                        if (value != null && value.trim().isNotEmpty) {
+                          final gaji = double.tryParse(value.trim());
+                          if (gaji == null || gaji < 0) {
+                            return 'Gaji harus berupa angka positif';
+                          }
                         }
                         return null;
                       },
                     ),
-
                     const SizedBox(height: 16),
 
                     // Kantor Dropdown
                     DropdownButtonFormField<int>(
                       value: _selectedKantorId,
                       decoration: const InputDecoration(
-                        labelText: 'Kantor *',
+                        labelText: 'Kantor',
                         border: OutlineInputBorder(),
                         prefixIcon: Icon(Icons.business),
                       ),
@@ -395,9 +343,7 @@ class _EditKaryawanScreenState extends State<EditKaryawanScreen> {
                         });
                       },
                       validator: (value) {
-                        if (value == null) {
-                          return 'Pilih kantor';
-                        }
+                        // Kantor tidak wajib untuk create
                         return null;
                       },
                     ),
@@ -453,7 +399,7 @@ class _EditKaryawanScreenState extends State<EditKaryawanScreen> {
                         const SizedBox(width: 16),
                         Expanded(
                           child: ElevatedButton.icon(
-                            onPressed: _isSaving ? null : _updateKaryawan,
+                            onPressed: _isSaving ? null : _createKaryawan,
                             icon: _isSaving
                                 ? const SizedBox(
                                     width: 16,
@@ -464,10 +410,10 @@ class _EditKaryawanScreenState extends State<EditKaryawanScreen> {
                                           Colors.white),
                                     ),
                                   )
-                                : const Icon(Icons.save),
-                            label: Text(_isSaving ? 'Menyimpan...' : 'Simpan'),
+                                : const Icon(Icons.add),
+                            label: Text(_isSaving ? 'Menyimpan...' : 'Tambah'),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue[600],
+                              backgroundColor: Colors.green[600],
                               foregroundColor: Colors.white,
                               padding: const EdgeInsets.symmetric(vertical: 16),
                             ),

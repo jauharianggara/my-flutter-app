@@ -117,17 +117,19 @@ class CreateKaryawanRequest {
   final String nama;
   final String email;
   final String? telefon;
+  final String? gaji;
   @JsonKey(name: 'kantor_id')
-  final int? kantorId;
+  final String kantorId; // Change to String and make required
   @JsonKey(name: 'jabatan_id')
-  final int jabatanId;
+  final String jabatanId; // Change to String
 
   CreateKaryawanRequest({
     required this.nama,
     required this.email,
     this.telefon,
-    this.kantorId,
-    required this.jabatanId,
+    this.gaji, // Change gaji to String
+    required this.kantorId, // Make required and String
+    required this.jabatanId, // Change to String
   });
 
   factory CreateKaryawanRequest.fromJson(Map<String, dynamic> json) =>

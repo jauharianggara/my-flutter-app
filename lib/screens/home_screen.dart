@@ -145,6 +145,7 @@ class DashboardTab extends StatelessWidget {
                     Colors.blue,
                     () {
                       // Navigate to karyawan screen (we'll use bottom nav)
+                      Navigator.of(context).pushNamed('/karyawan');
                     },
                   ),
                   _buildMenuCard(
