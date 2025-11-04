@@ -133,6 +133,10 @@ class KaryawanService {
   static Future<ApiResponse<Karyawan>> updateKaryawan(
       int id, UpdateKaryawanRequest request) async {
     try {
+      print('DEBUG: Update Karyawan Request:');
+      print('DEBUG: ID: $id');
+      print('DEBUG: Request JSON: ${request.toJson()}');
+      
       final response = await ApiService.put(
         '${ApiService.karyawansEndpoint}/$id',
         request.toJson(),
@@ -142,6 +146,7 @@ class KaryawanService {
         (json) => Karyawan.fromJson(json),
       );
     } catch (e) {
+      print('DEBUG: Update Karyawan Error: $e');
       return ApiResponse<Karyawan>(
         success: false,
         message: 'Failed to update karyawan: ${e.toString()}',

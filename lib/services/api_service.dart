@@ -3,10 +3,11 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/api_response.dart';
+import '../config/app_config.dart';
+import '../utils/api_error_handler.dart';
 
 class ApiService {
-  static const String baseUrl =
-      'http://localhost:8080'; // Change this to your API URL
+  static String get baseUrl => AppConfig.apiBaseUrl;
   static const String apiPrefix = '/api';
 
   // Authentication endpoints
@@ -154,22 +155,31 @@ class ApiService {
     final url = Uri.parse('$baseUrl$endpoint');
     final headers = await getHeaders(requireAuth: requireAuth);
 
-    print('=== API GET Request ===');
-    print('URL: $url');
-    print('Headers: $headers');
+    if (AppConfig.enableDebugLogs) {
+      print('=== API GET Request ===');
+      print('URL: $url');
+      print('Headers: $headers');
+    }
 
     try {
-      final response = await http.get(url, headers: headers);
+      final response = await http.get(url, headers: headers)
+          .timeout(AppConfig.connectionTimeout);
 
-      print('=== API GET Response ===');
-      print('Status Code: ${response.statusCode}');
-      print('Response Body: ${response.body}');
+      if (AppConfig.enableDebugLogs) {
+        print('=== API GET Response ===');
+        print('Status Code: ${response.statusCode}');
+        print('Response Body: ${response.body}');
+      }
 
       return response;
     } catch (e) {
-      print('=== API GET Error ===');
-      print('Error: $e');
-      throw Exception('Network error: $e');
+      if (AppConfig.enableDebugLogs) {
+        print('=== API GET Error ===');
+        print('Error: $e');
+      }
+      
+      final errorMessage = ApiErrorHandler.handleError(e);
+      throw Exception(errorMessage);
     }
   }
 
@@ -178,27 +188,35 @@ class ApiService {
     final url = Uri.parse('$baseUrl$endpoint');
     final headers = await getHeaders(requireAuth: requireAuth);
 
-    print('=== API POST Request ===');
-    print('URL: $url');
-    print('Headers: $headers');
-    print('Body: ${json.encode(body)}');
+    if (AppConfig.enableDebugLogs) {
+      print('=== API POST Request ===');
+      print('URL: $url');
+      print('Headers: $headers');
+      print('Body: ${json.encode(body)}');
+    }
 
     try {
       final response = await http.post(
         url,
         headers: headers,
         body: json.encode(body),
-      );
+      ).timeout(AppConfig.connectionTimeout);
 
-      print('=== API POST Response ===');
-      print('Status Code: ${response.statusCode}');
-      print('Response Body: ${response.body}');
+      if (AppConfig.enableDebugLogs) {
+        print('=== API POST Response ===');
+        print('Status Code: ${response.statusCode}');
+        print('Response Body: ${response.body}');
+      }
 
       return response;
     } catch (e) {
-      print('=== API POST Error ===');
-      print('Error: $e');
-      throw Exception('Network error: $e');
+      if (AppConfig.enableDebugLogs) {
+        print('=== API POST Error ===');
+        print('Error: $e');
+      }
+      
+      final errorMessage = ApiErrorHandler.handleError(e);
+      throw Exception(errorMessage);
     }
   }
 
@@ -207,13 +225,26 @@ class ApiService {
     final url = Uri.parse('$baseUrl$endpoint');
     final headers = await getHeaders(requireAuth: requireAuth);
 
+    print('=== API PUT Request ===');
+    print('URL: $url');
+    print('Headers: $headers');
+    print('Body: ${json.encode(body)}');
+
     try {
-      return await http.put(
+      final response = await http.put(
         url,
         headers: headers,
         body: json.encode(body),
       );
+
+      print('=== API PUT Response ===');
+      print('Status Code: ${response.statusCode}');
+      print('Response Body: ${response.body}');
+
+      return response;
     } catch (e) {
+      print('=== API PUT Error ===');
+      print('Error: $e');
       throw Exception('Network error: $e');
     }
   }

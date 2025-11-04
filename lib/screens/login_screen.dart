@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
+import '../widgets/error_dialog_helper.dart';
+import '../utils/api_error_handler.dart';
 import 'register_screen.dart';
 import 'home_screen.dart';
 
@@ -37,6 +39,11 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const HomeScreen()),
         );
+      } else if (mounted && authProvider.errorMessage != null) {
+        // Show network error dialog if it's a network issue
+        if (ApiErrorHandler.isNetworkError(authProvider.errorMessage!)) {
+          ErrorDialogHelper.showNetworkError(context);
+        }
       }
     }
   }
@@ -202,7 +209,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
 
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 16),
+
+                  // Server Status Button
+                  TextButton.icon(
+                    onPressed: () {
+                      ErrorDialogHelper.showServerStatusInfo(context);
+                    },
+                    icon: Icon(Icons.info_outline, color: Colors.grey[600]),
+                    label: Text(
+                      'Status Server',
+                      style: TextStyle(color: Colors.grey[600]),
+                    ),
+                  ),
+
+                  const SizedBox(height: 8),
 
                   // Register Link
                   Row(

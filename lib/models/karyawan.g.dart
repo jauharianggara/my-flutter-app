@@ -9,12 +9,16 @@ part of 'karyawan.dart';
 Karyawan _$KaryawanFromJson(Map<String, dynamic> json) => Karyawan(
       id: (json['id'] as num).toInt(),
       nama: json['nama'] as String,
-      email: json['email'] as String,
+      email: json['email'] as String?,
       telefon: json['telefon'] as String?,
+      gaji: (json['gaji'] as num?)?.toDouble(),
       kantorId: (json['kantor_id'] as num?)?.toInt(),
       jabatanId: (json['jabatan_id'] as num).toInt(),
       userId: (json['user_id'] as num?)?.toInt(),
-      fotoUrl: json['foto_url'] as String?,
+      fotoPath: json['foto_path'] as String?,
+      fotoOriginalName: json['foto_original_name'] as String?,
+      fotoSize: (json['foto_size'] as num?)?.toInt(),
+      fotoMimeType: json['foto_mime_type'] as String?,
       createdBy: (json['created_by'] as num?)?.toInt(),
       updatedBy: (json['updated_by'] as num?)?.toInt(),
       createdAt: json['created_at'] as String,
@@ -26,10 +30,14 @@ Map<String, dynamic> _$KaryawanToJson(Karyawan instance) => <String, dynamic>{
       'nama': instance.nama,
       'email': instance.email,
       'telefon': instance.telefon,
+      'gaji': instance.gaji,
       'kantor_id': instance.kantorId,
       'jabatan_id': instance.jabatanId,
       'user_id': instance.userId,
-      'foto_url': instance.fotoUrl,
+      'foto_path': instance.fotoPath,
+      'foto_original_name': instance.fotoOriginalName,
+      'foto_size': instance.fotoSize,
+      'foto_mime_type': instance.fotoMimeType,
       'created_by': instance.createdBy,
       'updated_by': instance.updatedBy,
       'created_at': instance.createdAt,
@@ -100,10 +108,11 @@ UpdateKaryawanRequest _$UpdateKaryawanRequestFromJson(
         Map<String, dynamic> json) =>
     UpdateKaryawanRequest(
       nama: json['nama'] as String,
-      email: json['email'] as String,
+      email: json['email'] as String?,
       telefon: json['telefon'] as String?,
-      kantorId: (json['kantor_id'] as num?)?.toInt(),
-      jabatanId: (json['jabatan_id'] as num).toInt(),
+      gaji: json['gaji'] as String?,
+      kantorId: json['kantor_id'] as String,
+      jabatanId: json['jabatan_id'] as String,
     );
 
 Map<String, dynamic> _$UpdateKaryawanRequestToJson(
@@ -112,6 +121,7 @@ Map<String, dynamic> _$UpdateKaryawanRequestToJson(
       'nama': instance.nama,
       'email': instance.email,
       'telefon': instance.telefon,
+      'gaji': instance.gaji,
       'kantor_id': instance.kantorId,
       'jabatan_id': instance.jabatanId,
     };

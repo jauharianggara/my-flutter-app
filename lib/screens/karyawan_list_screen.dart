@@ -24,7 +24,11 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Daftar Karyawan'),
+        title: Row(
+          children: [
+            const Text('Daftar Karyawan'),
+          ],
+        ),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
         automaticallyImplyLeading: false,
@@ -229,7 +233,7 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
                           ),
                         ),
                       );
-                      
+
                       // Refresh data jika edit berhasil
                       if (result == true) {
                         if (context.mounted) {
