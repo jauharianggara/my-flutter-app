@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/karyawan_provider.dart';
 import '../models/karyawan.dart';
+import 'edit_karyawan_screen.dart';
 
 class KaryawanListScreen extends StatefulWidget {
   const KaryawanListScreen({super.key});
@@ -217,15 +218,25 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
 
               // Actions
               PopupMenuButton<String>(
-                onSelected: (value) {
+                onSelected: (value) async {
                   switch (value) {
                     case 'edit':
-                      // TODO: Navigate to edit karyawan
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Fitur edit akan segera tersedia'),
+                      final result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditKaryawanScreen(
+                            karyawan: karyawan,
+                          ),
                         ),
                       );
+                      
+                      // Refresh data jika edit berhasil
+                      if (result == true) {
+                        if (context.mounted) {
+                          Provider.of<KaryawanProvider>(context, listen: false)
+                              .loadKaryawans();
+                        }
+                      }
                       break;
                     case 'delete':
                       _showDeleteDialog(context, karyawan);
