@@ -116,7 +116,8 @@ class _CreateKaryawanScreenState extends State<CreateKaryawanScreen> {
       print('DEBUG: Email: ${_emailController.text.trim()}');
       print(
           'DEBUG: Telefon: ${_telefonController.text.trim().isEmpty ? "null" : _telefonController.text.trim()}');
-      print('DEBUG: Gaji: ${_gajiController.text.trim().isEmpty ? "0" : _gajiController.text.trim()}');
+      print(
+          'DEBUG: Gaji: ${_gajiController.text.trim().isEmpty ? "0" : _gajiController.text.trim()}');
       print('DEBUG: KantorId: $_selectedKantorId');
       print('DEBUG: JabatanId: $_selectedJabatanId');
       print('DEBUG: Request object: $request');
