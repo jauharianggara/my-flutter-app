@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
-import 'login_screen.dart';
-import 'karyawan_list_screen.dart';
+import 'auth/login_screen.dart';
+import 'karyawan/karyawan_list_screen.dart';
+import 'kantor/kantor_list_screen.dart';
+import 'jabatan/jabatan_list_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -154,7 +156,12 @@ class DashboardTab extends StatelessWidget {
                     Icons.business,
                     Colors.green,
                     () {
-                      // TODO: Navigate to kantor screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const KantorListScreen(),
+                        ),
+                      );
                     },
                   ),
                   _buildMenuCard(
@@ -163,7 +170,12 @@ class DashboardTab extends StatelessWidget {
                     Icons.work,
                     Colors.orange,
                     () {
-                      // TODO: Navigate to jabatan screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const JabatanListScreen(),
+                        ),
+                      );
                     },
                   ),
                   _buildMenuCard(

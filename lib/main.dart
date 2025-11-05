@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/auth_provider.dart';
+import 'providers/jabatan_provider.dart';
+import 'providers/kantor_provider.dart';
 import 'providers/karyawan_provider.dart';
-import 'screens/splash_screen.dart';
+import 'screens/auth/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,6 +19,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => KaryawanProvider()),
+        ChangeNotifierProvider(create: (_) => KantorProvider()),
+        ChangeNotifierProvider(create: (_) => JabatanProvider()),
       ],
       child: MaterialApp(
         title: 'Employee Management',

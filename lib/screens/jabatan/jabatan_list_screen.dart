@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/karyawan_provider.dart';
-import '../models/karyawan.dart';
-import 'edit_karyawan_screen.dart';
-import 'create_karyawan_screen.dart';
+import '../../providers/jabatan_provider.dart';
+import '../../models/jabatan.dart';
+import 'edit_jabatan_screen.dart';
+import 'create_jabatan_screen.dart';
 
-class KaryawanListScreen extends StatefulWidget {
-  const KaryawanListScreen({super.key});
+class JabatanListScreen extends StatefulWidget {
+  const JabatanListScreen({super.key});
 
   @override
-  State<KaryawanListScreen> createState() => _KaryawanListScreenState();
+  State<JabatanListScreen> createState() => _JabatanListScreenState();
 }
 
-class _KaryawanListScreenState extends State<KaryawanListScreen> {
+class _JabatanListScreenState extends State<JabatanListScreen> {
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<KaryawanProvider>(context, listen: false).loadKaryawans();
+      Provider.of<JabatanProvider>(context, listen: false).loadJabatans();
     });
   }
 
@@ -25,33 +25,28 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: [
-            const Text('Daftar Karyawan'),
-          ],
-        ),
+        title: const Text('Daftar Jabatan'),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
-        automaticallyImplyLeading: false,
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () {
-              Provider.of<KaryawanProvider>(context, listen: false)
-                  .loadKaryawans();
+              Provider.of<JabatanProvider>(context, listen: false)
+                  .loadJabatans();
             },
           ),
         ],
       ),
-      body: Consumer<KaryawanProvider>(
-        builder: (context, karyawanProvider, child) {
-          if (karyawanProvider.isLoading) {
+      body: Consumer<JabatanProvider>(
+        builder: (context, jabatanProvider, child) {
+          if (jabatanProvider.isLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
 
-          if (karyawanProvider.errorMessage != null) {
+          if (jabatanProvider.errorMessage != null) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -63,14 +58,14 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Error: ${karyawanProvider.errorMessage}',
+                    'Error: ${jabatanProvider.errorMessage}',
                     textAlign: TextAlign.center,
                     style: const TextStyle(fontSize: 16),
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
-                      karyawanProvider.loadKaryawans();
+                      jabatanProvider.loadJabatans();
                     },
                     child: const Text('Coba Lagi'),
                   ),
@@ -79,24 +74,24 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
             );
           }
 
-          if (karyawanProvider.karyawans.isEmpty) {
+          if (jabatanProvider.jabatans.isEmpty) {
             return const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
-                    Icons.people_outline,
+                    Icons.work,
                     size: 64,
                     color: Colors.grey,
                   ),
                   SizedBox(height: 16),
                   Text(
-                    'Belum ada data karyawan',
+                    'Belum ada data jabatan',
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'Tambahkan karyawan pertama Anda',
+                    'Tambahkan jabatan pertama Anda',
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.grey,
@@ -109,14 +104,14 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
 
           return RefreshIndicator(
             onRefresh: () async {
-              await karyawanProvider.loadKaryawans();
+              await jabatanProvider.loadJabatans();
             },
             child: ListView.builder(
               padding: const EdgeInsets.all(16),
-              itemCount: karyawanProvider.karyawans.length,
+              itemCount: jabatanProvider.jabatans.length,
               itemBuilder: (context, index) {
-                final karyawan = karyawanProvider.karyawans[index];
-                return _buildKaryawanCard(context, karyawan);
+                final jabatan = jabatanProvider.jabatans[index];
+                return _buildJabatanCard(context, jabatan);
               },
             ),
           );
@@ -124,17 +119,18 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
+          final navigatorContext = context;
           final result = await Navigator.push(
-            context,
+            navigatorContext,
             MaterialPageRoute(
-              builder: (context) => const CreateKaryawanScreen(),
+              builder: (context) => const CreateJabatanScreen(),
             ),
           );
 
-          // Refresh list if karyawan was created successfully
+          // Refresh list if jabatan was created successfully
           if (result == true && mounted) {
-            Provider.of<KaryawanProvider>(context, listen: false)
-                .loadKaryawans();
+            Provider.of<JabatanProvider>(navigatorContext, listen: false)
+                .loadJabatans();
           }
         },
         backgroundColor: Colors.green,
@@ -143,7 +139,7 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
     );
   }
 
-  Widget _buildKaryawanCard(BuildContext context, KaryawanWithKantor karyawan) {
+  Widget _buildJabatanCard(BuildContext context, Jabatan jabatan) {
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       elevation: 2,
@@ -153,31 +149,21 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
         onTap: () {
-          _showKaryawanDetail(context, karyawan);
+          _showJabatanDetail(context, jabatan);
         },
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Row(
             children: [
-              // Avatar
+              // Icon
               CircleAvatar(
                 radius: 30,
                 backgroundColor: Colors.blue[100],
-                backgroundImage: karyawan.fotoPath != null
-                    ? NetworkImage('http://localhost:8080/${karyawan.fotoPath}')
-                    : null,
-                child: karyawan.fotoPath == null
-                    ? Text(
-                        karyawan.nama.isNotEmpty
-                            ? karyawan.nama[0].toUpperCase()
-                            : 'K',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue[800],
-                        ),
-                      )
-                    : null,
+                child: Icon(
+                  Icons.work,
+                  size: 30,
+                  color: Colors.blue[800],
+                ),
               ),
               const SizedBox(width: 16),
 
@@ -187,7 +173,7 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      karyawan.nama,
+                      jabatan.namaJabatan,
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -195,34 +181,12 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      karyawan.jabatanNama ?? 'Tidak ada jabatan',
+                      'Jabatan',
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.blue[600],
-                        fontWeight: FontWeight.w500,
+                        color: Colors.grey[600],
                       ),
                     ),
-                    if (karyawan.kantorNama != null) ...[
-                      const SizedBox(height: 2),
-                      Text(
-                        karyawan.kantorNama!,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[600],
-                        ),
-                      ),
-                    ],
-                    if (karyawan.gaji != null) ...[
-                      const SizedBox(height: 2),
-                      Text(
-                        'Gaji: Rp ${karyawan.gaji?.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.green[600],
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
                   ],
                 ),
               ),
@@ -230,27 +194,29 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
               // Actions
               PopupMenuButton<String>(
                 onSelected: (value) async {
+                  final navigatorContext = context;
                   switch (value) {
                     case 'edit':
                       final result = await Navigator.push(
-                        context,
+                        navigatorContext,
                         MaterialPageRoute(
-                          builder: (context) => EditKaryawanScreen(
-                            karyawan: karyawan,
+                          builder: (context) => EditJabatanScreen(
+                            jabatan: jabatan,
                           ),
                         ),
                       );
 
                       // Refresh data jika edit berhasil
                       if (result == true) {
-                        if (context.mounted) {
-                          Provider.of<KaryawanProvider>(context, listen: false)
-                              .loadKaryawans();
+                        if (mounted) {
+                          Provider.of<JabatanProvider>(navigatorContext,
+                                  listen: false)
+                              .loadJabatans();
                         }
                       }
                       break;
                     case 'delete':
-                      _showDeleteDialog(context, karyawan);
+                      _showDeleteDialog(navigatorContext, jabatan);
                       break;
                   }
                 },
@@ -284,7 +250,8 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
     );
   }
 
-  void _showKaryawanDetail(BuildContext context, KaryawanWithKantor karyawan) {
+  void _showJabatanDetail(BuildContext context, Jabatan jabatan) {
+    final navigatorContext = context;
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -292,9 +259,9 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (context) => DraggableScrollableSheet(
-        initialChildSize: 0.7,
-        maxChildSize: 0.9,
-        minChildSize: 0.5,
+        initialChildSize: 0.5,
+        maxChildSize: 0.7,
+        minChildSize: 0.3,
         expand: false,
         builder: (context, scrollController) => SingleChildScrollView(
           controller: scrollController,
@@ -321,22 +288,11 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
                   CircleAvatar(
                     radius: 40,
                     backgroundColor: Colors.blue[100],
-                    backgroundImage: karyawan.fotoPath != null
-                        ? NetworkImage(
-                            'http://localhost:8080/${karyawan.fotoPath}')
-                        : null,
-                    child: karyawan.fotoPath == null
-                        ? Text(
-                            karyawan.nama.isNotEmpty
-                                ? karyawan.nama[0].toUpperCase()
-                                : 'K',
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blue[800],
-                            ),
-                          )
-                        : null,
+                    child: Icon(
+                      Icons.work,
+                      size: 40,
+                      color: Colors.blue[800],
+                    ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
@@ -344,14 +300,14 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          karyawan.nama,
+                          jabatan.namaJabatan,
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
-                          karyawan.jabatanNama ?? 'Tidak ada jabatan',
+                          'Jabatan',
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.blue[600],
@@ -366,15 +322,7 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
               const SizedBox(height: 24),
 
               // Details
-              if (karyawan.gaji != null)
-                _buildDetailItem('Gaji',
-                    'Rp ${karyawan.gaji?.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}'),
-              if (karyawan.kantorNama != null)
-                _buildDetailItem('Kantor', karyawan.kantorNama!),
-              if (karyawan.jabatanNama != null)
-                _buildDetailItem('Jabatan', karyawan.jabatanNama!),
-              if (karyawan.fotoOriginalName != null)
-                _buildDetailItem('Nama File Foto', karyawan.fotoOriginalName!),
+              _buildDetailItem('Nama Jabatan', jabatan.namaJabatan),
 
               const SizedBox(height: 16),
 
@@ -384,8 +332,16 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
                   Expanded(
                     child: OutlinedButton.icon(
                       onPressed: () {
-                        Navigator.pop(context);
-                        // TODO: Navigate to edit
+                        Navigator.pop(navigatorContext);
+                        // Navigate to edit
+                        Navigator.push(
+                          navigatorContext,
+                          MaterialPageRoute(
+                            builder: (context) => EditJabatanScreen(
+                              jabatan: jabatan,
+                            ),
+                          ),
+                        );
                       },
                       icon: const Icon(Icons.edit),
                       label: const Text('Edit'),
@@ -395,8 +351,8 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
                   Expanded(
                     child: ElevatedButton.icon(
                       onPressed: () {
-                        Navigator.pop(context);
-                        _showDeleteDialog(context, karyawan);
+                        Navigator.pop(navigatorContext);
+                        _showDeleteDialog(navigatorContext, jabatan);
                       },
                       icon: const Icon(Icons.delete),
                       label: const Text('Hapus'),
@@ -441,13 +397,13 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
     );
   }
 
-  void _showDeleteDialog(BuildContext context, KaryawanWithKantor karyawan) {
+  void _showDeleteDialog(BuildContext context, Jabatan jabatan) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Hapus Karyawan'),
+        title: const Text('Hapus Jabatan'),
         content: Text(
-          'Apakah Anda yakin ingin menghapus karyawan "${karyawan.nama}"?',
+          'Apakah Anda yakin ingin menghapus jabatan "${jabatan.namaJabatan}"?',
         ),
         actions: [
           TextButton(
@@ -457,19 +413,18 @@ class _KaryawanListScreenState extends State<KaryawanListScreen> {
           TextButton(
             onPressed: () async {
               Navigator.pop(context);
-              final karyawanProvider =
-                  Provider.of<KaryawanProvider>(context, listen: false);
+              final jabatanProvider =
+                  Provider.of<JabatanProvider>(context, listen: false);
 
-              final success =
-                  await karyawanProvider.deleteKaryawan(karyawan.id);
+              final success = await jabatanProvider.deleteJabatan(jabatan.id);
 
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
                       success
-                          ? 'Karyawan berhasil dihapus'
-                          : 'Gagal menghapus karyawan: ${karyawanProvider.errorMessage}',
+                          ? 'Jabatan berhasil dihapus'
+                          : 'Gagal menghapus jabatan: ${jabatanProvider.errorMessage}',
                     ),
                     backgroundColor: success ? Colors.green : Colors.red,
                   ),

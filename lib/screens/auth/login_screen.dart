@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/auth_provider.dart';
-import '../widgets/error_dialog_helper.dart';
-import '../utils/api_error_handler.dart';
+import '../../providers/auth_provider.dart';
+import '../../widgets/error_dialog_helper.dart';
+import '../../utils/api_error_handler.dart';
 import 'register_screen.dart';
-import 'home_screen.dart';
+import '../home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/karyawan.dart';
-import '../providers/karyawan_provider.dart';
-import '../services/dropdown_service.dart';
-import '../services/karyawan_service.dart';
+import '../../models/karyawan.dart';
+import '../../providers/karyawan_provider.dart';
+import '../../services/dropdown_service.dart';
+import '../../services/karyawan_service.dart';
 
 class CreateKaryawanScreen extends StatefulWidget {
   const CreateKaryawanScreen({super.key});
