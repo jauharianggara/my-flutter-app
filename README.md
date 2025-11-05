@@ -85,15 +85,30 @@ lib/
 │   └── jabatan_service.dart
 ├── providers/        # State management with Provider
 │   ├── auth_provider.dart
-│   └── karyawan_provider.dart
-├── screens/          # UI screens
-│   ├── splash_screen.dart
-│   ├── login_screen.dart
-│   ├── register_screen.dart
-│   ├── home_screen.dart
-│   └── karyawan_list_screen.dart
+│   ├── karyawan_provider.dart
+│   ├── kantor_provider.dart
+│   └── jabatan_provider.dart
+├── screens/          # UI screens organized by feature
+│   ├── auth/
+│   │   ├── login_screen.dart
+│   │   ├── register_screen.dart
+│   │   └── splash_screen.dart
+│   ├── karyawan/
+│   │   ├── karyawan_list_screen.dart
+│   │   ├── create_karyawan_screen.dart
+│   │   └── edit_karyawan_screen.dart
+│   ├── kantor/
+│   │   ├── kantor_list_screen.dart
+│   │   ├── create_kantor_screen.dart
+│   │   └── edit_kantor_screen.dart
+│   ├── jabatan/
+│   │   ├── jabatan_list_screen.dart
+│   │   ├── create_jabatan_screen.dart
+│   │   └── edit_jabatan_screen.dart
+│   └── home_screen.dart
 ├── widgets/          # Reusable UI components
-└── utils/            # Utility functions
+├── utils/            # Utility functions
+└── config/           # Configuration files
 ```
 
 ## Getting Started
