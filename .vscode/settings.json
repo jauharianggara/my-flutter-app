@@ -20,5 +20,6 @@
     "editor.insertSpaces": true,
     "flutter.customDevices": [],
     "flutter.experimentalFeatures": true,
-    "cmake.sourceDirectory": "C:/Users/jauha/my-flutter-app/windows"
+    "cmake.sourceDirectory": "C:/Users/jauha/my-flutter-app/windows",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
